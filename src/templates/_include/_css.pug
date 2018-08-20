@@ -1,0 +1,8 @@
+| <!-- inject:css -->
+| <!-- endinject -->
+if process.argv.slice(3).indexOf('--production') > -1
+	link(rel="stylesheet", href="./css/thuvien.min.css")
+	link(rel="stylesheet", href="./css/main.min.css")
+else
+	link(rel="stylesheet", href="./css/thuvien.css")
+	link(rel="stylesheet", href="./css/main.css")

@@ -1,0 +1,8 @@
+| <!-- inject:js -->
+| <!-- endinject -->
+if process.argv.slice(3).indexOf('--production') > -1
+	script(src="./js/thuvien.min.js")
+	script(src="./js/main.min.js")
+else 
+	script(src="./js/thuvien.js")
+	script(src="./js/main.js")
