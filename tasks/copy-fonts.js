@@ -1,8 +1,8 @@
 module.exports = function (gulp, $, browserSync) {
 	gulp.task('copy-fonts', function () {
 		return gulp.src([
-				'./src/fonts/**.*',
+				'./src/webfonts/**.*',
 			])
-			.pipe(gulp.dest('./dist/fonts'));
+			.pipe(gulp.dest('./dist/webfonts'));
 	});
 };
