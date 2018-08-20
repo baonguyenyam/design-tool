@@ -1,6 +1,9 @@
 /////////////////////////////////
 // Phần Slider
 /////////////////////////////////
+$liena: #0d1d42
+$lienavang: #fedd14
+
 .container-fluid-full
 	width: 100%
 .canhcam-design-1
@@ -48,8 +51,8 @@
 							+fz(1.6rem)
 					&:hover,&.active 
 						a 
-							background: $main
-							color: $whites
+							background: $liena
+							color: $lienavang
 							&:before 
 								content: ''
 								display: block
@@ -75,16 +78,16 @@
 						+lh(1.3rem)
 						.btn-title
 							width: 100%
-							color: $main
+							color: $liena
 							text-decoration: none
 							h5
 								margin-bottom: 0
 							p
 								margin-bottom: 0
 						&.active, &:hover 
-							background: $main
+							background: $liena
 							.btn-title
-								color: $whites
+								color: $lienavang
 					.owl-nav
 						button
 							display: inline-block
@@ -99,7 +102,7 @@
 								+pos(abs, 50% -1.5rem null null)
 							&:hover 
 								background: none
-								color: $main
+								color: $liena
 			.select-nav-color
 				+pad(0 1rem)
 				.list-item
@@ -114,5 +117,7 @@
 						transition: .3s ease-in-out
 						background: darken($whites,15%)
 						margin-bottom: 1rem
-						&:hover
+						border: 2px solid transparent
+						&:hover, &.active
+							border-color: $lienavang
 							box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1)
