@@ -1,4 +1,7 @@
 var baoNguyenApp = {
+	API: {
+		home: '/db/db.json'
+	},
 	loading: function (i) {
 		i && 1 == i ? $("#loading").removeClass("done").removeClass("finished") : (setTimeout(function () {
 			$("#loading").addClass("done")
@@ -6,9 +9,22 @@ var baoNguyenApp = {
 			$("#loading").removeClass("done").addClass("finished")
 		}, 1e3))
 	},
-	init: function() {
+	fetch: function (api, methor, handleData) {
 		// Bật Loading
-		this.loading(true)
+		baoNguyenApp.loading(true)
+		$.ajax({
+			url: api,
+			type: methor,
+			dataType: "json",
+			cache: !0,
+			complete: function (data) {
+				handleData(data)
+				// Tắt Loading
+				baoNguyenApp.loading(false)
+			}
+		})
+	},
+	init: function () {
 		$('[data-toggle="tooltip"]').tooltip()
 		$('.canhcam-design-1 .select-nav-slider .owl-carousel').owlCarousel({
 			loop: true,
@@ -27,11 +43,12 @@ var baoNguyenApp = {
 				}
 			}
 		})
-		// Tắt Loading
-		this.loading(false)
 	}
 }
 // Main
-$(document).ready(function() {
+$(document).ready(function () {
 	baoNguyenApp.init()
+	baoNguyenApp.fetch(baoNguyenApp.API.home, 'GET', function (e) {
+		console.log(e.responseJSON.data)
+	})
 });
