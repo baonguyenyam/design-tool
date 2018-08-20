@@ -1,59 +1,113 @@
 /////////////////////////////////
 // Phần Slider
 /////////////////////////////////
+.container-fluid-full
+	width: 100%
 .canhcam-design-1
-	.select-color
-		a.btn-color
-			background: $info
-			+bor-rad(50px)
-			+mar(.5rem .5rem null null)
-			color: $whites
-	.slide-sub
-		+pad(null 2rem)
-		margin-top: 1rem
-		position: relative
-		.owl-carousel
-			.item
-				a.btn-title
-					width: 100%
-					background: $wet-ashpalt
-					color: $whites
-					p
-						margin-bottom: 0
-			.owl-nav
-				button
-					&.owl-prev, &.owl-next
-						margin: 0
-						+transform(translateY(-50%))
-						&:focus
-							outline: none
-					&.owl-prev
-						+pos(abs, 50% null null -1rem)
-					&.owl-next
-						+pos(abs, 50% -1rem null null)
-	.color-list
-		.list-item
-			+pad(1rem)
-			padding-left: 0
-			.item
-				display: inline-block
-				width: 4.5rem
+	.select
+		display: flex
+		flex-wrap: wrap
+		min-height: 100vh
+		.select-color
+			display: flex
+			flex-direction: column
+			flex: 0 0 100px
+			max-width: 100px
+			background: darken($whites,10%)
+			ul 
+				text-align: center
+				+mar(0)
+				+pad(0)
+				li
+					margin-right: 0
+					list-style-type: none
+					+fz(.85rem)
+					border-bottom: 1px solid darken($whites,15%)
+					position: relative
+					&:before 
+						content: ''
+						display: block
+						width: 100%
+						height: 1px 
+						background: darken($whites,3%)
+						+pos(abs, null 0 -2px null)
+					a 
+						display: block
+						text-decoration: none
+						+pad(.5rem)
+						+lh(1.3rem)
+						color: darken($whites,60%)
+						span 
+							display: block
+						i 
+							+fz(2rem)
+					&:hover,&.active 
+						a 
+							background: $main
+							color: $whites
+							&:before 
+								content: ''
+								display: block
+								width: 0
+								height: 0
+								border-style: solid
+								border-width: 5px 5px 5px 0
+								border-color: transparent #fff transparent transparent
+								+pos(abs, 50% 0 null null)
+								transform: translateY(-50%)
+		.select-nav
+			flex: 0 0 calc(100% - 100px)
+			max-width: calc(100% - 100px)
+			.select-nav-slider
+				+pad(null 2.5rem)
+				margin-top: 1rem
 				position: relative
-				height: 4.5rem
-				+mar(null 1rem 1rem null)
-				transition: .3s ease-in-out
-				background: $sun-flower
-				&.color-1
-					background: $peter-river
-				&.color-2
-					background: $pumpkin
-				.name
-					+pos(abs, null null 0 0)
-					background: rgba($blacks, .7)
-					color: $whites
-					width: 100%
-					+pad(.2rem null)
-					+fz(.9rem)
-					text-align: center
-				&:hover
-					box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1)
+				.owl-carousel
+					.item
+						background: darken($whites,15%)
+						+pad(.75rem)
+						text-align: center
+						+lh(1.3rem)
+						.btn-title
+							width: 100%
+							color: $main
+							text-decoration: none
+							h5
+								margin-bottom: 0
+							p
+								margin-bottom: 0
+						&.active, &:hover 
+							background: $main
+							.btn-title
+								color: $whites
+					.owl-nav
+						button
+							display: inline-block
+							&.owl-prev, &.owl-next
+								margin: 0
+								+transform(translateY(-50%))
+								&:focus
+									outline: none
+							&.owl-prev
+								+pos(abs, 50% null null -1.5rem)
+							&.owl-next
+								+pos(abs, 50% -1.5rem null null)
+							&:hover 
+								background: none
+								color: $main
+			.select-nav-color
+				+pad(0 1rem)
+				.list-item
+					+pad(1rem 0)
+					display: flex
+					-webkit-flex-flow: row wrap
+					justify-content: space-between
+					.item
+						display: block
+						width: 6rem
+						height: 6rem
+						transition: .3s ease-in-out
+						background: darken($whites,15%)
+						margin-bottom: 1rem
+						&:hover
+							box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1)
