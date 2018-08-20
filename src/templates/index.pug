@@ -8,6 +8,11 @@ block variables
 
 //- Phần khai báo body
 block body
+	#loading
+		.bar Đang tải dữ liệu...
+		.progress
+			.progress-bar.progress-bar-striped.bg-secondary.progress-bar-animated(role="progressbar" aria-valuenow="100" style="width: 100%" aria-valuemin="0" ariavaluemax="100")
+
 	section.canhcam-design-1
 		.container-fluid-full
 			.row.no-gutters
@@ -16,23 +21,23 @@ block body
 				.col-4.select
 					.select-color
 						ul
-							li.item
+							li.item(data-toggle="tooltip" data-placement="left" title="Tooltip on top")
 								a(href="#") 
 									i.fas.fa-fill-drip
 									span Chọn màu tường
-							li.item.active
+							li.item.active(data-toggle="tooltip" data-placement="left" title="Tooltip on top")
 								a(href="#") 
 									i.fas.fa-palette
 									span Chọn màu tường
-							li.item 
+							li.item(data-toggle="tooltip" data-placement="left" title="Tooltip on top")
 								a(href="#") 
 									i.fas.fa-brush
 									span Chọn màu tường
-							li.item 
+							li.item(data-toggle="tooltip" data-placement="left" title="Tooltip on top")
 								a(href="#") 
 									i.fas.fa-paint-roller
 									span Chọn màu tường
-							li.item 
+							li.item(data-toggle="tooltip" data-placement="left" title="Tooltip on top")
 								a(href="#") 
 									i.fas.fa-paint-brush
 									span Chọn màu tường
