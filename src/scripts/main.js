@@ -4,27 +4,27 @@ var baoNguyenApp = {
 		home: '/db/db.json'
 	},
 	// Bật loadding 
-	loading: function (i) {
-		i && 1 == i ? $("#loading").removeClass("done").removeClass("finished") : (setTimeout(function () {
+	loading: (i) => {
+		i && 1 == i ? $("#loading").removeClass("done").removeClass("finished") : (setTimeout(() => {
 			$("#loading").addClass("done")
-		}, 200), setTimeout(function () {
+		}, 200), setTimeout(() => {
 			$("#loading").removeClass("done").addClass("finished")
 		}, 1e3))
 	},
 	// Load dữ liệu & xử lý
-	fetch: function(e, o, n) {
-        baoNguyenApp.loading(!0), $.ajax({
-            url: e,
-            type: o,
-            dataType: "json",
-            cache: !0,
-            complete: function(e) {
-                n(e), baoNguyenApp.loading(!1)
-            }
-        })
+	fetch: (e, o, n) => {
+		baoNguyenApp.loading(!0), $.ajax({
+			url: e,
+			type: o,
+			dataType: "json",
+			cache: !0,
+			complete: (e) => {
+				n(e), baoNguyenApp.loading(!1)
+			}
+		})
 	},
 	// Khởi tạo app
-	init: function () {
+	init: () => {
 		$('[data-toggle="tooltip"]').tooltip()
 		$('.canhcam-design-1 .select-nav-slider .owl-carousel').owlCarousel({
 			loop: true,
@@ -38,9 +38,9 @@ var baoNguyenApp = {
 	}
 }
 // Canh Cam Code
-$(document).ready(function () {
+$(document).ready(() => {
 	baoNguyenApp.init()
-	baoNguyenApp.fetch(baoNguyenApp.API.home, 'GET', function (e) {
+	baoNguyenApp.fetch(baoNguyenApp.API.home, 'GET', (e) => {
 		console.log(e.responseJSON.data)
 	})
 });
