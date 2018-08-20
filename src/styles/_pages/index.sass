@@ -1,5 +1,59 @@
 /////////////////////////////////
 // Phần Slider
 /////////////////////////////////
-.home-slider
-	
+.canhcam-design-1
+	.select-color
+		a.btn-color
+			background: $info
+			+bor-rad(50px)
+			+mar(.5rem .5rem null null)
+			color: $whites
+	.slide-sub
+		+pad(null 2rem)
+		margin-top: 1rem
+		position: relative
+		.owl-carousel
+			.item
+				a.btn-title
+					width: 100%
+					background: $wet-ashpalt
+					color: $whites
+					p
+						margin-bottom: 0
+			.owl-nav
+				button
+					&.owl-prev, &.owl-next
+						margin: 0
+						+transform(translateY(-50%))
+						&:focus
+							outline: none
+					&.owl-prev
+						+pos(abs, 50% null null -1rem)
+					&.owl-next
+						+pos(abs, 50% -1rem null null)
+	.color-list
+		.list-item
+			+pad(1rem)
+			padding-left: 0
+			.item
+				display: inline-block
+				width: 4.5rem
+				position: relative
+				height: 4.5rem
+				+mar(null 1rem 1rem null)
+				transition: .3s ease-in-out
+				background: $sun-flower
+				&.color-1
+					background: $peter-river
+				&.color-2
+					background: $pumpkin
+				.name
+					+pos(abs, null null 0 0)
+					background: rgba($blacks, .7)
+					color: $whites
+					width: 100%
+					+pad(.2rem null)
+					+fz(.9rem)
+					text-align: center
+				&:hover
+					box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1)
