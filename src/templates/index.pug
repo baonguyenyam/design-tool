@@ -51,7 +51,6 @@ block body
 								| 
 								| Đang tải dữ liệu...
 							.list-item
-								.item(ng-repeat="item in materials")
-									em(ng-bind-html="item.icon | html")
+								.item(ng-repeat="item in materials", ng-style="{'background-color':item.color, 'background-image':'url('+item.image+')'}")
 
 

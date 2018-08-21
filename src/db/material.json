@@ -2,32 +2,32 @@
 	"lists": [{
 			"name": "Chọn màu tường",
 			"color": "#334455",
-			"icon": ".\/img\/home_2.png"
+			"image": ".\/img\/home_2.png"
 		},
 		{
 			"name": "Chọn màu tường",
 			"color": "#334455",
-			"icon": ".\/img\/home_2.png"
+			"image": ".\/img\/home_2.png"
 		},
 		{
 			"name": "Chọn màu tường",
 			"color": "#334455",
-			"icon": ".\/img\/home_2.png"
+			"image": ".\/img\/home_2.png"
 		},
 		{
 			"name": "Chọn màu tường",
 			"color": "#334455",
-			"icon": ".\/img\/home_2.png"
+			"image": ".\/img\/home_2.png"
 		},
 		{
 			"name": "Chọn màu tường",
 			"color": "#334455",
-			"icon": ".\/img\/home_2.png"
+			"image": ".\/img\/home_2.png"
 		},
 		{
 			"name": "Chọn màu tường",
 			"color": "#334455",
-			"icon": ".\/img\/home_2.png"
+			"image": ".\/img\/home_2.png"
 		}
 	]
 }

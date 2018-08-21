@@ -16,7 +16,7 @@ app.controller('getMenuMaterial', function ($scope, $http) {
 			getMaterial($scope, $http)
 		}
 	}, function (error) {
-		console.log('Error: ' + error);
+		console.log('Lỗi Menu: ' + error);
 	});
 });
 
@@ -31,6 +31,6 @@ function getMaterial($scope, $http) {
 		$scope.materials = eval(response.data.lists);
 		$scope.showloading = false
 	}, function (error) {
-		console.log('Error: ' + error);
+		console.log('Lỗi Material: ' + error);
 	});
 }
