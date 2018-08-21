@@ -112,17 +112,25 @@ $lienavang: #fedd14
 					+pad(1rem 0)
 					display: flex
 					-webkit-flex-flow: row wrap
-					justify-content: space-between
+					margin: 0 -.5rem
 					.item
 						display: block
-						width: 6rem
-						height: 6rem
+						width: calc(33.3333333333% - 1rem)
+						margin: 0 .5rem
 						transition: .3s ease-in-out
 						background: darken($whites,15%)
 						margin-bottom: 1rem
-						border: 2px solid transparent
+						box-shadow: 0 0 0 2px $liena inset
 						background-size: cover
 						background-position: center center
+						cursor: pointer
+						a 
+							display: block
+							height: 100%
+							width: 100%
+						+media-breakpoint-up(lg)
+							width: calc(25% - 1rem)
+						+media-breakpoint-up(xl)
+							width: calc(25% - 1rem)
 						&:hover, &.active
-							border-color: $lienavang
-							box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1)
+							box-shadow: 0 0 0 2px $lienavang inset, 0 0 40px rgba(0, 0, 0, 0.1)

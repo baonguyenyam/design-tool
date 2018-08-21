@@ -29,6 +29,11 @@ function getMaterial($scope, $http) {
 		url: baoNguyenApp.API.material
 	}).then(function (response) {
 		$scope.materials = eval(response.data.lists);
+		if($scope.materials.length>0) {
+			setTimeout(() => {
+				materialHeight()
+			}, 100);
+		}
 		$scope.showloading = false
 	}, function (error) {
 		console.log('Lỗi Material: ' + error);

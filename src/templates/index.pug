@@ -50,7 +50,8 @@ block body
 								i.fa.fa-sync.fa-spin.mr-1
 								| 
 								| Đang tải dữ liệu...
-							.list-item
-								.item(ng-repeat="item in materials", ng-style="{'background-color':item.color, 'background-image':'url('+item.image+')'}")
+							ul.list-item
+								li.item(ng-repeat="item in materials", ng-style="{'background-color':item.color, 'background-image':'url('+item.image+')'}")
+									a(href="javascript:void(0);" onclick="toggleMenu(this)")
 
 

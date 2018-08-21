@@ -38,6 +38,17 @@ var baoNguyenApp = {
 		})
 	}
 }
+
+function toggleMenu(el) {
+	$(el).parents('ul').find('li').removeClass('active')
+	$(el).parents('li').addClass('active')
+}
+
+function materialHeight() {
+	$(".select-nav-color .item").each(function () {
+		$(this).height($(this).width())
+	});
+}
 // Canh Cam Code
 $(document).ready(() => {
 	baoNguyenApp.init()
@@ -46,7 +57,8 @@ $(document).ready(() => {
 	})
 });
 
-function toggleMenu(el) {
-	$(el).parents('ul').find('li').removeClass('active')
-	$(el).parents('li').addClass('active')
-}
+$(window).resize(() => {
+	$(".select-nav-color .item").each(function () {
+		$(this).height($(this).width())
+	});
+});
