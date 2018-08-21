@@ -1,7 +1,8 @@
 var baoNguyenApp = {
 	// API hệ thống 
 	API: {
-		home: '/db/db.json'
+		menu: '/db/db.json',
+		material: '/db/material.json',
 	},
 	// Bật loadding 
 	loading: (i) => {
@@ -40,7 +41,7 @@ var baoNguyenApp = {
 // Canh Cam Code
 $(document).ready(() => {
 	baoNguyenApp.init()
-	baoNguyenApp.fetch(baoNguyenApp.API.home, 'GET', (e) => {
+	baoNguyenApp.fetch(baoNguyenApp.API.menu, 'GET', (e) => {
 		console.log(e.responseJSON)
 	})
 });
@@ -48,5 +49,4 @@ $(document).ready(() => {
 function toggleMenu(el) {
 	$(el).parents('ul').find('li').removeClass('active')
 	$(el).parents('li').addClass('active')
-	console.log(	$(el).attr('data-get'))
 }
