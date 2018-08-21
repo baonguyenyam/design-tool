@@ -20,27 +20,11 @@ block body
 					.box-product Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis doloribus animi reprehenderit itaque blanditiis eius, consectetur accusantium porro libero iste ad dicta vitae asperiores necessitatibus fugiat error? Sapiente, alias recusandae.
 				.col-4.select
 					.select-color
-						ul
-							li.item(data-toggle="tooltip" data-placement="left" title="Tooltip on top")
-								a(href="#") 
-									i.fas.fa-fill-drip
-									span Chọn màu tường
-							li.item.active(data-toggle="tooltip" data-placement="left" title="Tooltip on top")
-								a(href="#") 
-									i.fas.fa-palette
-									span Chọn màu tường
-							li.item(data-toggle="tooltip" data-placement="left" title="Tooltip on top")
-								a(href="#") 
-									i.fas.fa-brush
-									span Chọn màu tường
-							li.item(data-toggle="tooltip" data-placement="left" title="Tooltip on top")
-								a(href="#") 
-									i.fas.fa-paint-roller
-									span Chọn màu tường
-							li.item(data-toggle="tooltip" data-placement="left" title="Tooltip on top")
-								a(href="#") 
-									i.fas.fa-paint-brush
-									span Chọn màu tường
+						ul(ng-controller="getMenu")
+							li.item(ng-repeat="item in menus", ng-class="{active: $index == 0 }")
+								a(href="javascript:void(0);" onclick="toggleMenu(this)" data-get="{{item.get}}") 
+									em(ng-bind-html="item.icon | html")
+									span {{item.name}}
 					.select-nav
 						.select-nav-slider
 							.owl-carousel.owl-theme

@@ -7,7 +7,7 @@ module.exports = function (gulp, $, browserSync) {
 				'bower_components/owl.carousel/dist/assets/owl.carousel.min.css',
 				'bower_components/owl.carousel/dist/assets/owl.theme.default.min.css',
 			])
-			.pipe($.concat('thuvien.css'))
+			.pipe($.concat('canhcam.css'))
 			.pipe(gulp.dest('./dist/css'));
 	});
 };

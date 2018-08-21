@@ -5,7 +5,7 @@ module.exports = function (gulp, $, browserSync) {
 				'./src/scripts/*.js'
 			])
 			.pipe($.sourcemaps.init())
-			.pipe($.concat('main.js'))
+			.pipe($.concat('app.js'))
 			.pipe($.babel())
 			.pipe($.sourcemaps.write(''))
 			.pipe(gulp.dest('./dist/js'));

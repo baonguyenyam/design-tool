@@ -41,6 +41,12 @@ var baoNguyenApp = {
 $(document).ready(() => {
 	baoNguyenApp.init()
 	baoNguyenApp.fetch(baoNguyenApp.API.home, 'GET', (e) => {
-		console.log(e.responseJSON.data)
+		console.log(e.responseJSON)
 	})
 });
+
+function toggleMenu(el) {
+	$(el).parents('ul').find('li').removeClass('active')
+	$(el).parents('li').addClass('active')
+	console.log(	$(el).attr('data-get'))
+}

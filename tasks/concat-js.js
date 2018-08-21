@@ -4,8 +4,9 @@ module.exports = function(gulp, $, browserSync) {
                 'bower_components/jquery/dist/jquery.min.js',
                 'bower_components/bootstrap/dist/js/bootstrap.bundle.min.js',
                 'bower_components/owl.carousel/dist/owl.carousel.min.js',
+                'bower_components/angular/angular.min.js',
             ])
-            .pipe($.concat('thuvien.js'))
+            .pipe($.concat('canhcam.js'))
             .pipe(gulp.dest('./dist/js'));
     });
 };
