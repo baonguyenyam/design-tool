@@ -1,6 +1,7 @@
 var baoNguyenApp = {
 	// API hệ thống 
 	API: {
+		main: '/db/main.json',
 		menu: '/db/db.json',
 		material: '/db/material.json',
 	},
@@ -42,7 +43,7 @@ function materialHeight() {
 // Canh Cam Code
 $(document).ready(() => {
 	baoNguyenApp.init()
-	baoNguyenApp.fetch(baoNguyenApp.API.menu, 'GET', (e) => {
+	baoNguyenApp.fetch(baoNguyenApp.API.main, 'GET', (e) => {
 		console.log(e.responseJSON)
 	})
 });

@@ -13,11 +13,17 @@ block body
 		.progress
 			.progress-bar.progress-bar-striped.bg-secondary.progress-bar-animated(role="progressbar" aria-valuenow="100" style="width: 100%" aria-valuemin="0" ariavaluemax="100")
 
-	section.canhcam-design-1
+	section.canhcam-design-1(ng-controller="mainControl")
 		.container-fluid-full
 			.row.no-gutters
 				.col-8
-					.box-product Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis doloribus animi reprehenderit itaque blanditiis eius, consectetur accusantium porro libero iste ad dicta vitae asperiores necessitatibus fugiat error? Sapiente, alias recusandae.
+					.box-product 
+						.showloading-material(ng-show="showloadingmaterial") 
+							.inner
+								i.fa.fa-sync.fa-spin.mr-1
+								| 
+								| {{lang.loading}}
+						.apply-content {{data.desc}}
 				.col-4.select(ng-controller="getMenuMaterial")
 					.select-color
 						ul
@@ -28,12 +34,12 @@ block body
 									span {{item.name}}
 					.select-nav
 						.select-nav-color
-							h3.h5.mt-2.mb-0 Danh mục chất liệu
-							.alert.alert-info.mt-3(ng-show="!materials.length && !showloading") Không có danh mục nào cả!
+							h3.h5.mt-2.mb-0 {{lang.material}}
+							.alert.alert-info.mt-3(ng-show="!materials.length && !showloading") {{lang.noitem}}
 							.showloading.mt-3(ng-show="showloading") 
 								i.fa.fa-sync.fa-spin.mr-1
 								| 
-								| Đang tải dữ liệu...
+								| {{lang.loading}}
 							ul.list-item
 								li.item(ng-repeat="item in materials", ng-style="{'background-color':item.color, 'background-image':'url('+item.image+')'}")
 									a(href="javascript:void(0);" onclick="toggleMenu(this)" ng-click="setPattern(item)")

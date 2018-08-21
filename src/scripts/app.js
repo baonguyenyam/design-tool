@@ -6,6 +6,25 @@ app.filter('html', ['$sce', function ($sce) {
 	};
 }])
 // Main Controller
+app.controller('mainControl', function ($scope, $http) {
+	$scope.lang = {
+		loading: 'Đang tải dữ liệu...',
+		noitem: 'Không có danh mục nào cả!',
+		material: 'Danh mục chất liệu'
+	}
+	$http({
+		method: 'GET',
+		url: baoNguyenApp.API.main
+	}).then(function (response) {
+		$scope.data = eval(response.data.settings);
+	}, function (error) {
+		console.log('Lỗi Data: ' + error);
+	});
+	$scope.setPattern = function (e) {
+		doSetMaterial(e, $scope, $http)
+	}
+});
+// Child Controller
 app.controller('getMenuMaterial', function ($scope, $http) {
 	$http({
 		method: 'GET',
@@ -34,11 +53,15 @@ function getMaterial($scope, $http) {
 				materialHeight()
 			}, 100);
 		}
-		$scope.setPattern = function (e) {
-			console.log(e)
-		}
 		$scope.showloading = false
 	}, function (error) {
 		console.log('Lỗi Material: ' + error);
 	});
+}
+
+function doSetMaterial(e, $scope, $http) {
+	$scope.showloadingmaterial = false
+	$scope.showloadingmaterial = true
+	// $scope.showloadingmaterial = false
+	console.log(e)
 }
