@@ -34,6 +34,9 @@ function getMaterial($scope, $http) {
 				materialHeight()
 			}, 100);
 		}
+		$scope.setPattern = function (e) {
+			console.log(e)
+		}
 		$scope.showloading = false
 	}, function (error) {
 		console.log('Lỗi Material: ' + error);

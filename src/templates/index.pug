@@ -52,6 +52,6 @@ block body
 								| Đang tải dữ liệu...
 							ul.list-item
 								li.item(ng-repeat="item in materials", ng-style="{'background-color':item.color, 'background-image':'url('+item.image+')'}")
-									a(href="javascript:void(0);" onclick="toggleMenu(this)")
+									a(href="javascript:void(0);" onclick="toggleMenu(this)" ng-click="setPattern(item)")
 
 
