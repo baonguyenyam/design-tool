@@ -69,43 +69,6 @@ $lienavang: #fedd14
 		.select-nav
 			flex: 0 0 calc(100% - 100px)
 			max-width: calc(100% - 100px)
-			.select-nav-slider
-				+pad(null 2.5rem)
-				margin-top: 1rem
-				position: relative
-				.owl-carousel
-					.item
-						background: darken($whites,15%)
-						+pad(.75rem)
-						text-align: center
-						+lh(1.3rem)
-						.btn-title
-							width: 100%
-							color: $liena
-							text-decoration: none
-							h5
-								margin-bottom: 0
-							p
-								margin-bottom: 0
-						&.active, &:hover 
-							background: $liena
-							.btn-title
-								color: $lienavang
-					.owl-nav
-						button
-							display: inline-block
-							&.owl-prev, &.owl-next
-								margin: 0
-								+transform(translateY(-50%))
-								&:focus
-									outline: none
-							&.owl-prev
-								+pos(abs, 50% null null -1.5rem)
-							&.owl-next
-								+pos(abs, 50% -1.5rem null null)
-							&:hover 
-								background: none
-								color: $liena
 			.select-nav-color
 				+pad(0 1rem)
 				.list-item

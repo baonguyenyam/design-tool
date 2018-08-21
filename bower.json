@@ -22,6 +22,8 @@
     "animate.css": "^3.7.0",
     "owl.carousel": "^2.3.4",
     "angular": "angularjs#^1.7.3",
-    "angular-bootstrap": "^2.5.0"
+    "angular-bootstrap": "^2.5.0",
+    "angular-animate": "^1.7.3",
+    "angular-sanitize": "^1.7.3"
   }
 }
