@@ -13,6 +13,11 @@ app.controller('mainControl', function ($scope, $http) {
 
 	$scope.lang = {
 		loading: 'Đang tải dữ liệu...',
+		pattern: 'Mẫu',
+		share: 'Chia sẻ',
+		booking: 'Đặt hàng',
+		save: 'Lưu ảnh',
+		itempage: 'Số mẫu/trang',
 		noitem: 'Không có danh mục nào cả!',
 		notice: 'Vui lòng chọn danh mục bên cạnh để thực hiện phối màu',
 		material: 'Danh mục chất liệu'

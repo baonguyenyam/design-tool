@@ -31,11 +31,29 @@ block body
 							img.img-1(src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2016/07/forest-example-square.jpg" alt="demo-clip-triangle-equilateral")
 							img.img-2(src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2016/07/forest-example-square.jpg" alt="demo-clip-triangle-equilateral")
 					.control-bar
-
+						ul.nav.mb-0
+							li.nav-item 
+								a(href="javascript:void(0)")
+									i.fab.fa-facebook-f.fa-fw
+									| 
+									| {{lang.share}}
+							li.nav-item 
+								a(href="javascript:void(0)")
+									i.fas.fa-save.fa-fw
+									| 
+									| {{lang.save}}
+							li.nav-item 
+								a(href="javascript:void(0)")
+									i.fas.fa-shopping-cart.fa-fw
+									| 
+									| {{lang.booking}}
+							li.nav-item.toggle
+								a(href="javascript:void(0)")
+									em.fas.fa-angle-double-down.fa-fw
 				.col-4.select(ng-controller="getMenuMaterial")
 					.select-color
 						ul
-							li.item.title MENU
+							li.item.title {{lang.pattern}}
 							li.item(ng-repeat="item in menus" uib-tooltip="Enter something in this input field to disable this tooltip" tooltip-placement="top")
 								a(href="javascript:void(0);" onclick="toggleMenu(this)" ng-click="ctrlClickHandler(item)") 
 									em(ng-bind-html="item.icon | html")
@@ -64,7 +82,7 @@ block body
 							.pagebottom(ng-show="materials.length")
 								.row.align-items-center
 									.col-auto.d-flex.align-items-center
-										.mr-2.tl Số mẫu/trang
-										select.form-control(ng-model="viewby" ng-change="setItemsPerPage(viewby)"  ng-options="item as item.name for item in select")
+										.mr-2.tl {{lang.itempage}}
+										select.form-control.form-control-sm(ng-model="viewby" ng-change="setItemsPerPage(viewby)"  ng-options="item as item.name for item in select")
 									.col.justify-content-end.d-flex
 										ul.mb-0.pagination(uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="itemsPerPage" next-text="Trang kế", previous-text="Trang trước")
