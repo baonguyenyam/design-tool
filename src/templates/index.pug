@@ -17,8 +17,8 @@ block body
 		.container-fluid-full
 			.row.no-gutters
 				.col-8
-					.box-product 
-						.showloading-material(ng-show="showloadingmaterial") 
+					.box-product
+						.showloading-material(ng-class="{'active':showloadingmaterial}")
 							.inner
 								i.fa.fa-sync.fa-spin.mr-1
 								| 
@@ -33,15 +33,25 @@ block body
 									em(ng-bind-html="item.icon | html")
 									span {{item.name}}
 					.select-nav
+						.showloading(ng-class="{'active': showloading}") 
+							.inner.text-center
+								figure
+									img(src="./img/logo.png", alt="")
+								.lo
+									i.fa.fa-sync.fa-spin.mr-1
+									| 
+									| {{lang.loading}}
 						.select-nav-color
-							h3.h5.mt-2.mb-0 {{lang.material}}
+							h3.h5.mt-2.mb-0(ng-show="materials.length") {{lang.material}}
 							.alert.alert-info.mt-3(ng-show="!materials.length && !showloading") {{lang.noitem}}
-							.showloading.mt-3(ng-show="showloading") 
-								i.fa.fa-sync.fa-spin.mr-1
-								| 
-								| {{lang.loading}}
+							.notice.mt-3(ng-show="!materials.length && !showloading") {{lang.notice}}
 							ul.list-item
-								li.item(ng-repeat="item in materials", ng-style="{'background-color':item.color, 'background-image':'url('+item.image+')'}")
+								li.item(ng-repeat="item in lists", ng-style="{'background-color':item.color, 'background-image':'url('+item.image+')'}")
 									a(href="javascript:void(0);" onclick="toggleMenu(this)" ng-click="setPattern(item)")
+							.row.align-item-center
+								.col-auto
+									select.form-control(ng-model="viewby" ng-change="setItemsPerPage(viewby)" ng-show="materials.length" ng-options="item as item.name for item in select")
+								.col.justify-content-end.d-flex
+									ul.pagination(uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="itemsPerPage" ng-show="materials.length")
 
 

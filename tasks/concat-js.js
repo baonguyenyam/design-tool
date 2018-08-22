@@ -8,6 +8,7 @@ module.exports = function(gulp, $, browserSync) {
                 // 'bower_components/angular-animate/angular-animate.min.js',
                 // 'bower_components/angular-sanitize/angular-sanitize.min.js',
                 'bower_components/angular-bootstrap/ui-bootstrap.min.js',
+                'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
             ])
             .pipe($.concat('canhcam.js'))
             .pipe(gulp.dest('./dist/js'));

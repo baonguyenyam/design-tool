@@ -10,6 +10,7 @@ app.controller('mainControl', function ($scope, $http) {
 	$scope.lang = {
 		loading: 'Đang tải dữ liệu...',
 		noitem: 'Không có danh mục nào cả!',
+		notice: 'Vui lòng chọn danh mục bên cạnh để thực hiện phối màu',
 		material: 'Danh mục chất liệu'
 	}
 	$http({
@@ -40,6 +41,38 @@ app.controller('getMenuMaterial', function ($scope, $http) {
 });
 
 function getMaterial($scope, $http) {
+	// Phân trang
+	$scope.lists = []
+	$scope.viewby = 12;
+	$scope.currentPage = 1;
+	$scope.itemsPerPage = $scope.viewby;
+	$scope.maxSize = 3;
+	$scope.select = [
+		{id: 12, name: '12'},
+		{id: 20, name: '20'},
+		{id: 24, name: '24'},
+		{id: 40, name: '40'},
+		{id: 48, name: '48'}
+	 ];
+	$scope.viewby = $scope.select[0];
+	$scope.setPage = function (pageNo) {
+		$scope.currentPage = pageNo;
+	};
+	$scope.pageChanged = function () {
+		$scope.lists = $scope.materials.slice((($scope.currentPage-1)*$scope.itemsPerPage), (($scope.currentPage)*$scope.itemsPerPage))
+		setTimeout(() => {
+			materialHeight()
+		}, 100);
+	};
+	$scope.setItemsPerPage = function (num) {
+		$scope.itemsPerPage = num.id;
+		$scope.currentPage = 1; 
+		$scope.lists = $scope.materials.slice((($scope.currentPage-1)*$scope.itemsPerPage), (($scope.currentPage)*$scope.itemsPerPage))
+		setTimeout(() => {
+			materialHeight()
+		}, 100);
+	}
+	// Phân trang
 	$scope.showloading = false
 	$scope.materials = []
 	$scope.showloading = true
@@ -48,7 +81,11 @@ function getMaterial($scope, $http) {
 		url: baoNguyenApp.API.material
 	}).then(function (response) {
 		$scope.materials = eval(response.data.lists);
-		if($scope.materials.length>0) {
+		// Phân trang
+		$scope.totalItems = response.data.lists.length;
+		$scope.lists = $scope.materials.slice((($scope.currentPage-1)*$scope.itemsPerPage), (($scope.currentPage)*$scope.itemsPerPage))
+		// Phân trang
+		if ($scope.materials.length > 0) {
 			setTimeout(() => {
 				materialHeight()
 			}, 100);
@@ -60,8 +97,10 @@ function getMaterial($scope, $http) {
 }
 
 function doSetMaterial(e, $scope, $http) {
-	$scope.showloadingmaterial = false
-	$scope.showloadingmaterial = true
 	// $scope.showloadingmaterial = false
+	$scope.showloadingmaterial = true
 	console.log(e)
+	setTimeout(() => {
+		$scope.showloadingmaterial = false
+	}, 5000);
 }
