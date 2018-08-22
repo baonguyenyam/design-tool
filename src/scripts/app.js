@@ -7,6 +7,10 @@ app.filter('html', ['$sce', function ($sce) {
 }])
 // Main Controller
 app.controller('mainControl', function ($scope, $http) {
+	$scope.showloading = false
+	$scope.materials = []
+	$scope.showloadingmaterial = false
+
 	$scope.lang = {
 		loading: 'Đang tải dữ liệu...',
 		noitem: 'Không có danh mục nào cả!',
@@ -73,8 +77,6 @@ function getMaterial($scope, $http) {
 		}, 100);
 	}
 	// Phân trang
-	$scope.showloading = false
-	$scope.materials = []
 	$scope.showloading = true
 	$http({
 		method: 'GET',
@@ -97,10 +99,15 @@ function getMaterial($scope, $http) {
 }
 
 function doSetMaterial(e, $scope, $http) {
-	// $scope.showloadingmaterial = false
 	$scope.showloadingmaterial = true
-	console.log(e)
-	setTimeout(() => {
+	$http({
+		method: 'GET',
+		url: baoNguyenApp.API.material
+	}).then(function (response) {
+		$scope.dataset = e
+		$('.apply-content').html(e.name)
 		$scope.showloadingmaterial = false
-	}, 5000);
+	}, function (error) {
+		console.log('Lỗi setData: ' + error);
+	});
 }

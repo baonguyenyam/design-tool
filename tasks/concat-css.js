@@ -3,9 +3,9 @@ module.exports = function (gulp, $, browserSync) {
 		return gulp.src([
 				"node_modules/@fortawesome/fontawesome-free/css/all.min.css",
 				'bower_components/animate.css/animate.min.css',
+				'bower_components/offline/themes/offline-theme-default.css',
 				// // OWL
-				'bower_components/owl.carousel/dist/assets/owl.carousel.min.css',
-				'bower_components/owl.carousel/dist/assets/owl.theme.default.min.css',
+				'src/css/offline-language-vietnam.min.css',
 			])
 			.pipe($.concat('canhcam.css'))
 			.pipe(gulp.dest('./dist/css'));

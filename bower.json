@@ -24,6 +24,7 @@
     "angular": "angularjs#^1.7.3",
     "angular-bootstrap": "^2.5.0",
     "angular-animate": "^1.7.3",
-    "angular-sanitize": "^1.7.3"
+    "angular-sanitize": "^1.7.3",
+    "offline": "^0.7.19"
   }
 }
