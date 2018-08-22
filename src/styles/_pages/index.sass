@@ -1,14 +1,12 @@
 /////////////////////////////////
 // Phần Slider
 /////////////////////////////////
-$liena: #0d1d42
-$lienavang: #fedd14
 
 .container-fluid-full
 	width: 100%
 .canhcam-design-1
 	.box-product
-		border: 1px solid darken($whites,5%)
+		box-shadow: 0 0 0 1px darken($whites,5%) inset
 		+mar(1rem)
 		+pad(1rem)
 		position: relative
@@ -61,6 +59,14 @@ $lienavang: #fedd14
 						height: 1px 
 						background: darken($whites,3%)
 						+pos(abs, null 0 -2px null)
+					&.title
+						line-height: 1.3rem
+						font-size: 1.1rem
+						font-weight: bold
+						background: $liena
+						color: $lienavang
+						padding: 0.75rem 1rem
+						
 					a 
 						display: block
 						text-decoration: none

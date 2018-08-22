@@ -23,13 +23,21 @@ block body
 								i.fa.fa-sync.fa-spin.mr-1
 								| 
 								| {{lang.loading}}
-						.apply-content {{data.desc}}
+						.apply-content 
+							figure.border
+								img.img-fluid(src="./img/phoicanh.png")
+							p.lead.mb-0 {{data.desc}}
+						//- .dsfdsf
+							img.img-1(src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2016/07/forest-example-square.jpg" alt="demo-clip-triangle-equilateral")
+							img.img-2(src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2016/07/forest-example-square.jpg" alt="demo-clip-triangle-equilateral")
+					.control-bar
+
 				.col-4.select(ng-controller="getMenuMaterial")
 					.select-color
 						ul
-							//- li.item(ng-repeat="item in menus", ng-class="{active: $index == 0 }")
-							li.item(ng-repeat="item in menus")
-								a(href="javascript:void(0);" onclick="toggleMenu(this)" ng-click="ctrlClickHandler(item.get)") 
+							li.item.title MENU
+							li.item(ng-repeat="item in menus" uib-tooltip="Enter something in this input field to disable this tooltip" tooltip-placement="top")
+								a(href="javascript:void(0);" onclick="toggleMenu(this)" ng-click="ctrlClickHandler(item)") 
 									em(ng-bind-html="item.icon | html")
 									span {{item.name}}
 					.select-nav
@@ -41,8 +49,13 @@ block body
 									i.fa.fa-sync.fa-spin.mr-1
 									| 
 									| {{lang.loading}}
+						nav(ng-show="materials.length")
+							ol.breadcrumb
+								li.breadcrumb-item 
+									i.fa.fa-home
+								li.breadcrumb-item.active {{lang.material}}
 						.select-nav-color
-							h3.h5.mt-2.mb-0(ng-show="materials.length") {{lang.material}}
+							h3.h5.mt-2.mb-0(ng-show="materials.length") {{title}}
 							.alert.alert-info.mt-3(ng-show="!materials.length && !showloading") {{lang.noitem}}
 							.notice.mt-3(ng-show="!materials.length && !showloading") {{lang.notice}}
 							ul.list-item
@@ -51,9 +64,7 @@ block body
 							.pagebottom(ng-show="materials.length")
 								.row.align-items-center
 									.col-auto.d-flex.align-items-center
-										.mr-2.tl Số trang
+										.mr-2.tl Số mẫu/trang
 										select.form-control(ng-model="viewby" ng-change="setItemsPerPage(viewby)"  ng-options="item as item.name for item in select")
 									.col.justify-content-end.d-flex
-										ul.mb-0.pagination(uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="itemsPerPage")
-
-
+										ul.mb-0.pagination(uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="itemsPerPage" next-text="Trang kế", previous-text="Trang trước")
