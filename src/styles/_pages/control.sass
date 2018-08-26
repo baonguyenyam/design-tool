@@ -4,7 +4,11 @@
 	+transform(translateX(-50%))
 	+bor-rad(3px 3px 0 0)
 	overflow: hidden
+	transition: .5s all ease-in-out 
+	&.active 
+		transform: translateX(-50%) translateY(100%)
 	ul 
+		flex-wrap: nowrap
 		li 
 			+mar(0_)
 			a 
@@ -16,6 +20,7 @@
 				position: relative
 				display: flex
 				align-items: center
+				white-space: nowrap
 				i 
 					width: 2.5rem
 					height: 2.5rem
@@ -48,6 +53,10 @@
 					height: 100%
 					em 
 						height: 100%
+						+pad(0 1.5rem)
+						display: flex
+						align-items: center
+						justify-content: center
 .breadcrumb
 	+bor-rad(0)
 	color: darken(#fff,60%)

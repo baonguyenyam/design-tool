@@ -27,6 +27,9 @@ var baoNguyenApp = {
 	},
 	// Khởi tạo app
 	init: () => {
+		$('.control-bar .toggle a').on('click', function() {
+			$('.control-bar').addClass('active')
+		})
 	}
 }
 
