@@ -1,9 +1,9 @@
 var baoNguyenApp = {
 	// API hệ thống 
 	API: {
-		main: '/db/main.json',
-		menu: '/db/menu.json',
-		material: '/db/material.json',
+		main: './db/main.json',
+		menu: './db/menu.json',
+		material: './db/material.json',
 	},
 	// Bật loadding 
 	loading: (i) => {
@@ -38,12 +38,18 @@ function toggleMenu(el) {
 	$(el).parents('li').addClass('active')
 }
 
+function toggleMenuChild(el) {
+	$(el).parents('ul').find('li').removeClass('active')
+	$(el).addClass('active')
+}
+
 // Canh Cam Code
 $(document).ready(() => {
 	baoNguyenApp.init()
 	baoNguyenApp.fetch(baoNguyenApp.API.main, 'GET', (e) => {
 		console.log(e.responseJSON)
 	})
+	
 });
 
 $(window).resize(() => {

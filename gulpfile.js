@@ -33,6 +33,7 @@ gulp.task('build', function (callback) {
 	runSequence(
 		'clean',
 		'copy-img',
+		'copy-db',
 		'copy-fonts',
 		'copy-favicon',
 		'concat-css',

@@ -10,6 +10,7 @@ module.exports = function(gulp, $, browserSync) {
                 // 'bower_components/angular-sanitize/angular-sanitize.min.js',
                 'bower_components/angular-bootstrap/ui-bootstrap.min.js',
                 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                'src/vendor/html2canvas.min.js',
             ])
             .pipe($.concat('canhcam.js'))
             .pipe(gulp.dest('./dist/js'));

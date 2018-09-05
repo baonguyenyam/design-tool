@@ -10,6 +10,7 @@ app.controller('mainControl', function ($scope, $http) {
 	$scope.showloading = false
 	$scope.materials = []
 	$scope.showloadingmaterial = false
+	$scope.showdone = false
 
 	$scope.lang = {
 		loading: 'Đang tải dữ liệu...',
@@ -105,12 +106,27 @@ function getMaterial(el, $scope, $http) {
 	}, function (error) {
 		console.log('Lỗi Material: ' + error);
 	});
+	$scope.buildImage = function () {
+		doneBuilder($scope, $http)
+	}
 }
 
 function doSetMaterial(e, $scope, $http) {
 	$scope.showloadingmaterial = true
+	$scope.showdone = true
 	$scope.dataset = e
 	$('.apply-content').html(e.name)
 	$scope.showloadingmaterial = false
+}
 
+function doneBuilder($scope, $http) {
+	console.log(1)
+	$scope.showloadingmaterial = true
+	$scope.showdone = true
+	setTimeout(() => {
+		html2canvas(document.querySelector("#drawimages")).then(canvas => {
+			$('#resultsdraw').html(canvas)
+		});
+		$scope.showloadingmaterial = false
+	}, 1000);
 }

@@ -6,7 +6,7 @@
 	width: 100%
 .canhcam-design-1
 	.box-product
-		box-shadow: 0 0 0 1px darken($whites,5%) inset
+		// box-shadow: 0 0 0 1px darken($whites,5%) inset
 		+mar(1rem)
 		+pad(1rem)
 		position: relative
@@ -99,12 +99,16 @@
 							img
 								filter: grayscale(0%)
 								opacity: 1
+					&:hover
+						z-index: 1000
 		.select-nav
 			flex: 0 0 calc(100% - 130px)
 			max-width: calc(100% - 130px)
 			position: relative
-			height: 100vh
+			min-height: 100vh
+			height: 100%
 			overflow-y: scroll
+			padding-bottom: 8rem
 			.showloading
 				+pos(abs, 0 null null 0)
 				width: 100%
@@ -158,7 +162,7 @@
 							width: calc(50% - .5rem)
 						@media (min-width: 1600px)
 							width: calc(50% - .5rem)
-						a 
+						.box
 							height: 100%
 							width: 100%
 							display: flex
@@ -186,7 +190,7 @@
 							&:before 
 								box-shadow: 0 0 5px 2px rgba(0,0,0,.15), 0 0 0 1px $liena inset, 0 0 40px rgba(0, 0, 0, 0.1)
 								z-index: 100
-							a
+							.box
 								.text
 									color: darken($liena,0%)
 
@@ -211,6 +215,23 @@
 		&.disabled
 			a 
 				color: rgba(255,255,255,.4)
+.pagebottom-done
+	+pos(abs, null 0 0 null)
+	+pad(1.5rem)
+	height: 8rem
+	+fz(.8rem)
+	width: 100%
+	.btn
+		box-shadow: 0 0 11px 5px rgba(0,0,0,.15)
+		+bor-rad(0)
+		+pad(1rem 2rem)
+		text-transform: uppercase
+		+fz(1.3rem)
+		color: $liena
+		+fw(500)
+		&:hover, &:active 
+			background: $liena 
+			color: #fff
 .pagebottom
 	color: #fff 
 	+pos(abs, null 0 0 null)

@@ -23,32 +23,34 @@ block body
 								i.fa.fa-sync.fa-spin.mr-1
 								| 
 								| {{lang.loading}}
-						.apply-content 
+						.apply-content#drawimages 
 							figure.border
 								img.img-fluid(src="./img/phoicanh.png")
-							p.lead.mb-0 {{data.desc}}
+							h2.h4.text-uppercase {{data.name}}
+							p.mb-0.text-muted {{data.desc}}
+						#resultsdraw
 						//- .dsfdsf
 							img.img-1(src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2016/07/forest-example-square.jpg" alt="demo-clip-triangle-equilateral")
 							img.img-2(src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2016/07/forest-example-square.jpg" alt="demo-clip-triangle-equilateral")
-					.control-bar
+					//- .control-bar
 						ul.nav.mb-0
 							li.nav-item 
-								a(href="#")
+								a(href="javascript:void(0);")
 									i.fab.fa-facebook-f.fa-fw
 									| 
 									| {{lang.share}}
 							li.nav-item 
-								a(href="#")
+								a(href="javascript:void(0);")
 									i.fas.fa-save.fa-fw
 									| 
 									| {{lang.save}}
 							li.nav-item 
-								a(href="#")
+								a(href="javascript:void(0);")
 									i.fas.fa-shopping-cart.fa-fw
 									| 
 									| {{lang.booking}}
 							li.nav-item.toggle
-								a(href="#")
+								a(href="javascript:void(0);")
 									em.fas.fa-angle-double-down.fa-fw
 				.col-4.select(ng-controller="getMenuMaterial")
 					.select-color
@@ -56,7 +58,7 @@ block body
 							//- Title Menu 
 							//- li.item.title {{lang.pattern}}
 							li.item(ng-repeat="item in menus" uib-tooltip="Enter something in this input field to disable this tooltip" tooltip-placement="top")
-								a(href="#" onclick="toggleMenu(this)" ng-click="ctrlClickHandler(item)") 
+								a(href="javascript:void(0);" onclick="toggleMenu(this)" ng-click="ctrlClickHandler(item)") 
 									em(ng-bind-html="item.icon | html")
 									span {{item.name}}
 					.select-nav
@@ -81,13 +83,16 @@ block body
 								h4.h4.mb-2 {{lang.noitem}}
 								p.lead {{lang.notice}}
 							ul.list-item
-								li.item(ng-repeat="item in lists")
-									a(href="#" onclick="toggleMenu(this)" ng-click="setPattern(item)") 
+								li.item(ng-repeat="item in lists" onclick="toggleMenuChild(this)" ng-click="setPattern(item)")
+									.box
 										.color(ng-style="{'background':'linear-gradient(127deg, '+item.color[0]+' 0%, '+item.color[0]+' 50%, '+item.color[1]+' 50%, '+item.color[1]+' 100%)'}", ng-if="item.color.length > 1")
 										.color(ng-style="{'background':''+item.color[0]+''}", ng-if="item.color.length == 1")
 										.text 
 											strong {{item.name}}
 											span {{item.code}}
+							//- Hoàn thành 
+							.pagebottom-done(ng-show="showdone")
+								a.btn.btn-default.btn-block(href="javascript:void(0);" ng-click="buildImage()") Hoàn thành
 							//- Phân trang
 							//- .pagebottom(ng-show="materials.length")
 								.row.align-items-center
