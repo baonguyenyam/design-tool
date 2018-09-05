@@ -142,7 +142,6 @@
 						margin-bottom: .5rem
 						background-size: cover
 						background-position: center center
-						cursor: pointer
 						position: relative
 						&:before 
 							display: block
@@ -190,7 +189,9 @@
 							&:before 
 								box-shadow: 0 0 5px 2px rgba(0,0,0,.15), 0 0 0 1px $liena inset, 0 0 40px rgba(0, 0, 0, 0.1)
 								z-index: 100
+								cursor: pointer
 							.box
+								cursor: pointer
 								.text
 									color: darken($liena,0%)
 
@@ -222,13 +223,14 @@
 	+fz(.8rem)
 	width: 100%
 	.btn
-		box-shadow: 0 0 11px 5px rgba(0,0,0,.15)
+		box-shadow: 0 1px 11px 5px rgba(0,0,0,.15)
 		+bor-rad(0)
 		+pad(1rem 2rem)
 		text-transform: uppercase
 		+fz(1.3rem)
 		color: $liena
 		+fw(500)
+		cursor: pointer
 		&:hover, &:active 
 			background: $liena 
 			color: #fff

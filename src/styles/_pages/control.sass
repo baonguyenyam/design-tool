@@ -1,12 +1,15 @@
 .control-bar
-	background: $liena
+	background: #fff
 	+pos(abs, null null 0 50%)
-	+transform(translateX(-50%))
-	+bor-rad(3px 3px 0 0)
+	+transform(translateX(-50%) translateY(100%))
+	+bor-rad(0 0)
 	overflow: hidden
 	transition: .5s all ease-in-out 
+	box-shadow: 0 1px 11px 5px rgba(0,0,0,.15)
+	border: 1px solid darken($whites,15%)
+	border-bottom: 0
 	&.active 
-		transform: translateX(-50%) translateY(100%)
+		transform: translateX(-50%) translateY(0%)
 	ul 
 		flex-wrap: nowrap
 		li 
@@ -15,8 +18,8 @@
 				display: inline-block
 				+pad(.5rem 1rem)
 				text-decoration: none
-				color: $lienavang
-				box-shadow: -1px 0 0 0 darken($liena, 10%) inset
+				color: darken($whites, 60%)
+				box-shadow: -1px 0 0 0 darken($whites, 10%) inset
 				position: relative
 				display: flex
 				align-items: center
@@ -25,25 +28,28 @@
 					width: 2.5rem
 					height: 2.5rem
 					line-height: 2.5rem
-					background: lighten($liena, 10%)
+					background: darken($whites, 5%)
 					margin-right: .5rem
 					+bor-rad(50%)
 				em
 					width: 2.5rem
 					height: 2.5rem
 					line-height: 2.5rem
-					background: lighten($liena, 10%)
-				&:before 
-					content: ''
-					display: block
-					width: 1px
-					height: 100% 
-					background: lighten($liena, 10%)
-					+pos(abs, null -1px 0 null)
+					background: darken($whites, 5%)
+				// &:before 
+				// 	content: ''
+				// 	display: block
+				// 	width: 1px
+				// 	height: 100% 
+				// 	background: darken($whites, 0%)
+				// 	+pos(abs, null -1px 0 null)
 			&:hover, &.active
+				box-shadow: 0 1px 11px 5px rgba(0,0,0,.15)
+				z-index: 999
 				a 
-					color: lighten($liena, 50%)
-					background: darken($liena, 10%)
+					color: $liena
+					background: darken($whites, 0%)
+					box-shadow: none
 			&:last-child
 				a
 					box-shadow: none

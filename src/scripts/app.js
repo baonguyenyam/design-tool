@@ -1,4 +1,10 @@
 var app = angular.module('canhCamApp', ['ui.bootstrap']);
+// Config
+app.config(['$compileProvider',
+	function ($compileProvider) {
+		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file):/);
+	}
+]);
 // Filter 
 app.filter('html', ['$sce', function ($sce) {
 	return function (val) {
@@ -11,6 +17,7 @@ app.controller('mainControl', function ($scope, $http) {
 	$scope.materials = []
 	$scope.showloadingmaterial = false
 	$scope.showdone = false
+	$scope.buildimagedone = false
 
 	$scope.lang = {
 		loading: 'Đang tải dữ liệu...',
@@ -126,6 +133,7 @@ function doneBuilder($scope, $http) {
 	setTimeout(() => {
 		html2canvas(document.querySelector("#drawimages")).then(canvas => {
 			$('#resultsdraw').html(canvas)
+			$scope.buildimagedone = true
 		});
 		$scope.showloadingmaterial = false
 	}, 1000);
