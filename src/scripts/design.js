@@ -2,7 +2,7 @@ var baoNguyenApp = {
 	// API hệ thống 
 	API: {
 		main: '/db/main.json',
-		menu: '/db/db.json',
+		menu: '/db/menu.json',
 		material: '/db/material.json',
 	},
 	// Bật loadding 
@@ -38,11 +38,6 @@ function toggleMenu(el) {
 	$(el).parents('li').addClass('active')
 }
 
-function materialHeight() {
-	$(".select-nav-color .item").each(function () {
-		$(this).height($(this).width())
-	});
-}
 // Canh Cam Code
 $(document).ready(() => {
 	baoNguyenApp.init()
@@ -52,7 +47,4 @@ $(document).ready(() => {
 });
 
 $(window).resize(() => {
-	$(".select-nav-color .item").each(function () {
-		$(this).height($(this).width())
-	});
 });

@@ -18,7 +18,7 @@ app.controller('mainControl', function ($scope, $http) {
 		booking: 'Đặt hàng',
 		save: 'Lưu ảnh',
 		itempage: 'Số mẫu/trang',
-		noitem: 'Không có danh mục nào cả!',
+		noitem: 'Danh sách màu phối!',
 		notice: 'Vui lòng chọn danh mục bên cạnh để thực hiện phối màu',
 		material: 'Danh mục chất liệu'
 	}
@@ -53,7 +53,7 @@ function getMaterial(el, $scope, $http) {
 	// Phân trang
 	$scope.title = el.name
 	$scope.lists = []
-	$scope.viewby = 12;
+	$scope.viewby = 1000; // Default 12 
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = $scope.viewby;
 	$scope.maxSize = 3;
@@ -84,17 +84,11 @@ function getMaterial(el, $scope, $http) {
 	};
 	$scope.pageChanged = function () {
 		$scope.lists = $scope.materials.slice((($scope.currentPage - 1) * $scope.itemsPerPage), (($scope.currentPage) * $scope.itemsPerPage))
-		setTimeout(() => {
-			materialHeight()
-		}, 100);
 	};
 	$scope.setItemsPerPage = function (num) {
 		$scope.itemsPerPage = num.id;
 		$scope.currentPage = 1;
 		$scope.lists = $scope.materials.slice((($scope.currentPage - 1) * $scope.itemsPerPage), (($scope.currentPage) * $scope.itemsPerPage))
-		setTimeout(() => {
-			materialHeight()
-		}, 100);
 	}
 	// Phân trang
 	$scope.showloading = true
@@ -107,11 +101,6 @@ function getMaterial(el, $scope, $http) {
 		$scope.totalItems = response.data.lists.length;
 		$scope.lists = $scope.materials.slice((($scope.currentPage - 1) * $scope.itemsPerPage), (($scope.currentPage) * $scope.itemsPerPage))
 		// Phân trang
-		if ($scope.materials.length > 0) {
-			setTimeout(() => {
-				materialHeight()
-			}, 100);
-		}
 		$scope.showloading = false
 	}, function (error) {
 		console.log('Lỗi Material: ' + error);
