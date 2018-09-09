@@ -32,7 +32,7 @@ block body
 						//- .dsfdsf
 							img.img-1(src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2016/07/forest-example-square.jpg" alt="demo-clip-triangle-equilateral")
 							img.img-2(src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2016/07/forest-example-square.jpg" alt="demo-clip-triangle-equilateral")
-					.control-bar(ng-class="{'active': buildimagedone}")
+					//- .control-bar(ng-class="{'active': buildimagedone}")
 						ul.nav.mb-0
 							li.nav-item 
 								a(ng-href="javascript:void(0);")
@@ -57,8 +57,8 @@ block body
 						ul
 							//- Title Menu 
 							//- li.item.title {{lang.pattern}}
-							li.item(ng-repeat="item in menus" uib-tooltip="Enter something in this input field to disable this tooltip" tooltip-placement="top")
-								a(ng-href="javascript:void(0);" onclick="toggleMenu(this)" ng-click="ctrlClickHandler(item)") 
+							li.item(ng-repeat="item in menus" uib-tooltip="Enter something in this input field to disable this tooltip" tooltip-placement="top", ng-class="{'active': CAT_URL == item.id}")
+								a(ng-href="javascript:void(0);" onclick="toggleMenu(this)" ng-click="ctrlClickHandler(item.id)") 
 									em(ng-bind-html="item.icon | html")
 									span {{item.name}}
 					.select-nav
@@ -83,7 +83,7 @@ block body
 								h4.h4.mb-2 {{lang.noitem}}
 								p.lead {{lang.notice}}
 							ul.list-item
-								li.item(ng-repeat="item in lists" onclick="toggleMenuChild(this)" ng-click="setPattern(item)")
+								li.item(ng-repeat="item in lists" onclick="toggleMenuChild(this)" ng-click="setPattern(item.code)", ng-class="{'active': PA_URL == item.code}")
 									.box
 										.color(ng-style="{'background':'linear-gradient(127deg, '+item.color[0]+' 0%, '+item.color[0]+' 50%, '+item.color[1]+' 50%, '+item.color[1]+' 100%)'}", ng-if="item.color.length > 1")
 										.color(ng-style="{'background':''+item.color[0]+''}", ng-if="item.color.length == 1")
@@ -92,7 +92,18 @@ block body
 											span {{item.code}}
 							//- Hoàn thành 
 							.pagebottom-done(ng-show="showdone")
-								a.btn.btn-default.btn-block(ng-href="javascript:void(0);" ng-click="buildImage()") Hoàn thành
+								a.btn.btn-default.btn-block(ng-href="javascript:void(0);" ng-click="buildImage()") {{lang.done}}
+							.done-bar(ng-show="buildimagedone")
+								ul.nav.mb-0
+									li.nav-item 
+										a.btn.btn-default(ng-href="javascript:void(0);")
+											| {{lang.share}}
+									li.nav-item 
+										a.btn.btn-default(ng-href="javascript:void(0);")
+											| {{lang.save}}
+									li.nav-item 
+										a.btn.btn-default(ng-href="javascript:void(0);")
+											| {{lang.booking}}
 							//- Phân trang
 							//- .pagebottom(ng-show="materials.length")
 								.row.align-items-center

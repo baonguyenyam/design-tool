@@ -2,7 +2,7 @@ var app = angular.module('canhCamApp', ['ui.bootstrap']);
 // Config
 app.config(['$compileProvider',
 	function ($compileProvider) {
-		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file):/);
+		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);
 	}
 ]);
 // Filter 
@@ -12,17 +12,19 @@ app.filter('html', ['$sce', function ($sce) {
 	};
 }])
 // Main Controller
-app.controller('mainControl', function ($scope, $http) {
+app.controller('mainControl', function ($scope, $http, $location) {
 	$scope.showloading = false
 	$scope.materials = []
 	$scope.showloadingmaterial = false
 	$scope.showdone = false
 	$scope.buildimagedone = false
-
+	$scope.CAT_URL = getUrlParameter('cat'),
+	$scope.PA_URL = getUrlParameter('pat')
 	$scope.lang = {
 		loading: 'Đang tải dữ liệu...',
 		pattern: 'Mẫu',
 		share: 'Chia sẻ',
+		done: 'Hoàn thành',
 		booking: 'Đặt hàng',
 		save: 'Lưu ảnh',
 		itempage: 'Số mẫu/trang',
@@ -41,6 +43,14 @@ app.controller('mainControl', function ($scope, $http) {
 	$scope.setPattern = function (e) {
 		doSetMaterial(e, $scope, $http)
 	}
+
+	if($scope.CAT_URL && $scope.CAT_URL != 'undefined'){
+		getMaterial($scope.CAT_URL, $scope, $http)
+	}
+	if($scope.PA_URL && $scope.PA_URL != 'undefined'){
+		doSetMaterial($scope.PA_URL, $scope, $http)
+	}
+
 });
 // Child Controller
 app.controller('getMenuMaterial', function ($scope, $http) {
@@ -59,7 +69,6 @@ app.controller('getMenuMaterial', function ($scope, $http) {
 
 function getMaterial(el, $scope, $http) {
 	// Phân trang
-	$scope.title = el.name
 	$scope.lists = []
 	$scope.viewby = 1000; // Default 12 
 	$scope.currentPage = 1;
@@ -102,7 +111,7 @@ function getMaterial(el, $scope, $http) {
 	$scope.showloading = true
 	$http({
 		method: 'GET',
-		url: baoNguyenApp.API.material + "?id=" + el.get
+		url: baoNguyenApp.API.material + "?id=" + el
 	}).then(function (response) {
 		$scope.materials = eval(response.data.lists);
 		// Phân trang
@@ -129,12 +138,28 @@ function doSetMaterial(e, $scope, $http) {
 function doneBuilder($scope, $http) {
 	console.log(1)
 	$scope.showloadingmaterial = true
-	$scope.showdone = true
+	$scope.showdone = false
+	$scope.buildimagedone = true
 	setTimeout(() => {
 		html2canvas(document.querySelector("#drawimages")).then(canvas => {
 			$('#resultsdraw').html(canvas)
-			$scope.buildimagedone = true
 		});
 		$scope.showloadingmaterial = false
 	}, 1000);
+}
+function getUrlParameter(param, dummyPath) {
+	var sPageURL = dummyPath || window.location.search.substring(1),
+		sURLVariables = sPageURL.split(/[&||?]/),
+		res;
+
+	for (var i = 0; i < sURLVariables.length; i += 1) {
+		var paramName = sURLVariables[i],
+			sParameterName = (paramName || '').split('=');
+
+		if (sParameterName[0] === param) {
+			res = sParameterName[1];
+		}
+	}
+
+	return res;
 }

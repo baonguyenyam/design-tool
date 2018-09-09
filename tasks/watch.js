@@ -3,6 +3,7 @@ module.exports = function (gulp, $, browserSync) {
 		gulp.watch('./src/styles/**/*.sass', ['tao-sass']);
 		gulp.watch('./src/img/**/*.*', ['copy-img']);
 		gulp.watch('./src/templates/**/*.pug', ['tao-html']);
+		gulp.watch('./src/db/*.json', ['copy-db']);
 		gulp.watch('./src/scripts/**/*.js', ['tao-js']);
 		gulp.watch("./dist/**/*.*").on('change', browserSync.reload);
 	});

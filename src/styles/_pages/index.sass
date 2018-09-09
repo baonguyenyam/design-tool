@@ -216,13 +216,13 @@
 		&.disabled
 			a 
 				color: rgba(255,255,255,.4)
-.pagebottom-done
+.pagebottom-done, .done-bar
 	+pos(abs, null 0 0 null)
 	+pad(1.5rem)
 	height: 8rem
 	+fz(.8rem)
 	width: 100%
-	.btn
+	> .btn
 		box-shadow: 0 1px 11px 5px rgba(0,0,0,.15)
 		+bor-rad(0)
 		+pad(1rem 2rem)
@@ -234,6 +234,26 @@
 		&:hover, &:active 
 			background: $liena 
 			color: #fff
+	ul 
+		flex-wrap: nowrap
+		box-shadow: 0 1px 11px 5px rgba(0,0,0,.15)
+		justify-content: space-between
+		li 
+			+mar(0_)
+			flex: 0 0 33.333333%
+			max-width: 33.333333%
+			.btn 
+				text-transform: uppercase
+				+bor-rad(0)
+				+fz(1.1rem)
+				color: $liena
+				+fw(500)
+				cursor: pointer
+				display: block
+				+pad(.75rem .5rem)
+				&:hover, &:active 
+					background: $liena 
+					color: #fff
 .pagebottom
 	color: #fff 
 	+pos(abs, null 0 0 null)

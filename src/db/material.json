@@ -1,7 +1,7 @@
 {
 	"lists": [{
 			"name": "Aqua Haze",
-			"code": "SDFGHJKL",
+			"code": "FGHJKKK",
 			"color": ["#87b9bc", "#5b7e98"],
 			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
 		},
@@ -13,7 +13,7 @@
 		},
 		{
 			"name": "Chọn màu tường",
-			"code": "SDFGHJKL",
+			"code": "FGHJKKK",
 			"color": ["#1a7f8e", "#6c6868"],
 			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
 		},
