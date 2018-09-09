@@ -37,18 +37,20 @@ app.controller('mainControl', function ($scope, $http, $location) {
 		url: baoNguyenApp.API.main
 	}).then(function (response) {
 		$scope.data = eval(response.data.settings);
+
+		if($scope.CAT_URL && $scope.CAT_URL != 'undefined'){
+			getMaterial($scope.CAT_URL, $scope, $http)
+		}
+		if($scope.PA_URL && $scope.PA_URL != 'undefined'){
+			doSetMaterial($scope.PA_URL, $scope, $http)
+		}
+
 	}, function (error) {
 		console.log('Lỗi Data: ' + error);
 	});
+
 	$scope.setPattern = function (e) {
 		doSetMaterial(e, $scope, $http)
-	}
-
-	if($scope.CAT_URL && $scope.CAT_URL != 'undefined'){
-		getMaterial($scope.CAT_URL, $scope, $http)
-	}
-	if($scope.PA_URL && $scope.PA_URL != 'undefined'){
-		doSetMaterial($scope.PA_URL, $scope, $http)
 	}
 
 });
@@ -122,6 +124,7 @@ function getMaterial(el, $scope, $http) {
 	}, function (error) {
 		console.log('Lỗi Material: ' + error);
 	});
+
 	$scope.buildImage = function () {
 		doneBuilder($scope, $http)
 	}
@@ -130,22 +133,20 @@ function getMaterial(el, $scope, $http) {
 function doSetMaterial(e, $scope, $http) {
 	$scope.showloadingmaterial = true
 	$scope.showdone = true
-	$scope.dataset = e
-	$('.apply-content').html(e.name)
+	$('.apply-content').html(e)
 	$scope.showloadingmaterial = false
 }
 
 function doneBuilder($scope, $http) {
-	console.log(1)
 	$scope.showloadingmaterial = true
 	$scope.showdone = false
 	$scope.buildimagedone = true
-	setTimeout(() => {
-		html2canvas(document.querySelector("#drawimages")).then(canvas => {
-			$('#resultsdraw').html(canvas)
-		});
-		$scope.showloadingmaterial = false
-	}, 1000);
+	html2canvas(document.querySelector("#drawimages"), {
+		logging: false
+	}).then(canvas => {
+		$('#resultsdraw').html(canvas)
+	});
+	$scope.showloadingmaterial = false
 }
 function getUrlParameter(param, dummyPath) {
 	var sPageURL = dummyPath || window.location.search.substring(1),
