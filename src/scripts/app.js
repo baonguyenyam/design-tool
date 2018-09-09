@@ -14,6 +14,8 @@ app.filter('html', ['$sce', function ($sce) {
 // Main Controller
 app.controller('mainControl', function ($scope, $http, $location) {
 	$scope.showloading = false
+	$scope.imageSave = null
+	$scope.imageSaveBASE64 = null
 	$scope.materials = []
 	$scope.showloadingmaterial = false
 	$scope.showdone = false
@@ -71,6 +73,7 @@ app.controller('getMenuMaterial', function ($scope, $http) {
 
 function getMaterial(el, $scope, $http) {
 	// Phân trang
+	$scope.dataCat = el
 	$scope.lists = []
 	$scope.viewby = 1000; // Default 12 
 	$scope.currentPage = 1;
@@ -128,11 +131,29 @@ function getMaterial(el, $scope, $http) {
 	$scope.buildImage = function () {
 		doneBuilder($scope, $http)
 	}
+
+	$scope.saveImage = function () {
+		$scope.imageSave.toBlob(function(blob) {
+			saveAs(blob, "pretty image.png");
+		});
+	}
+	$scope.shareImage = function () {
+		console.log($scope.imageSaveBASE64)
+	}
+	$scope.order = function () {
+		let dataToOrder = {
+			img: $scope.imageSaveBASE64,
+			cat: $scope.dataCat,
+			pat: $scope.dataPat
+		}
+		console.log(dataToOrder)
+	}
 }
 
 function doSetMaterial(e, $scope, $http) {
 	$scope.showloadingmaterial = true
 	$scope.showdone = true
+	$scope.dataPat = e
 	$('.apply-content').html(e)
 	$scope.showloadingmaterial = false
 }
@@ -144,7 +165,11 @@ function doneBuilder($scope, $http) {
 	html2canvas(document.querySelector("#drawimages"), {
 		logging: false
 	}).then(canvas => {
-		$('#resultsdraw').html(canvas)
+		var dataURL = canvas.toDataURL();
+		$('#resultsdraw').html('<img class="img-fluid" src="'+dataURL+'">')
+		$scope.imageSave = canvas
+		$scope.imageSaveBASE64 = dataURL
+		
 	});
 	$scope.showloadingmaterial = false
 }

@@ -96,13 +96,13 @@ block body
 							.done-bar(ng-show="buildimagedone")
 								ul.nav.mb-0
 									li.nav-item 
-										a.btn.btn-default(ng-href="javascript:void(0);")
+										a.btn.btn-default(ng-href="javascript:void(0);" ng-click="shareImage()")
 											| {{lang.share}}
 									li.nav-item 
-										a.btn.btn-default(ng-href="javascript:void(0);")
+										a.btn.btn-default(ng-href="javascript:void(0);" ng-click="saveImage()")
 											| {{lang.save}}
 									li.nav-item 
-										a.btn.btn-default(ng-href="javascript:void(0);")
+										a.btn.btn-default(ng-href="javascript:void(0);" ng-click="order()")
 											| {{lang.booking}}
 							//- Phân trang
 							//- .pagebottom(ng-show="materials.length")
