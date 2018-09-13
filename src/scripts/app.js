@@ -38,7 +38,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 		method: 'GET',
 		url: baoNguyenApp.API.main
 	}).then(function (response) {
-		$scope.data = eval(response.data.settings);
+		$scope.settings = eval(response.data.settings);
 
 		if ($scope.CAT_URL && $scope.CAT_URL != 'undefined') {
 			$rootScope.dataCat = $scope.CAT_URL
