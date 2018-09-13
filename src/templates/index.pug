@@ -26,12 +26,13 @@ block body
 						.apply-content#drawimages 
 							figure.border
 								img.img-fluid(src="./img/phoicanh.png")
-							h2.h4.text-uppercase {{data.name}}
-							p.mb-0.text-muted {{data.desc}}
+								figcaption
+									h2.h4.text-uppercase {{data.name}}
+									p.mb-0.text-muted {{data.desc}}
+							.blockprodis-goiom
+								.goiom(style="background: white")
+								img.goiom-cover(src="./img/goiom-w.png", alt="")
 						#resultsdraw
-						//- .dsfdsf
-							img.img-1(src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2016/07/forest-example-square.jpg" alt="demo-clip-triangle-equilateral")
-							img.img-2(src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2016/07/forest-example-square.jpg" alt="demo-clip-triangle-equilateral")
 					//- .control-bar(ng-class="{'active': buildimagedone}")
 						ul.nav.mb-0
 							li.nav-item 
@@ -58,8 +59,9 @@ block body
 							//- Title Menu 
 							//- li.item.title {{lang.pattern}}
 							li.item(ng-repeat="item in menus" uib-tooltip="Enter something in this input field to disable this tooltip" tooltip-placement="top", ng-class="{'active': CAT_URL == item.id}")
-								a(ng-href="javascript:void(0);" onclick="toggleMenu(this)" ng-click="ctrlClickHandler(item.id)") 
-									em(ng-bind-html="item.icon | html")
+								a(ng-href="javascript:void(0);" onclick="toggleMenu(this)" ng-click="ctrlClickHandler(item.id, $index)") 
+									img(ng-src="{{item.icon | html}}")
+									//- em(ng-bind-html="item.icon | html")
 									span {{item.name}}
 					.select-nav
 						.showloading(ng-class="{'active': showloading}") 

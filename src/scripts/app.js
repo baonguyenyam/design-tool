@@ -12,7 +12,7 @@ app.filter('html', ['$sce', function ($sce) {
 	};
 }])
 // Main Controller
-app.controller('mainControl', function ($scope, $http, $location) {
+app.controller('mainControl', function ($scope, $http, $rootScope) {
 	$scope.showloading = false
 	$scope.imageSave = null
 	$scope.imageSaveBASE64 = null
@@ -21,7 +21,7 @@ app.controller('mainControl', function ($scope, $http, $location) {
 	$scope.showdone = false
 	$scope.buildimagedone = false
 	$scope.CAT_URL = getUrlParameter('cat'),
-	$scope.PA_URL = getUrlParameter('pat')
+		$scope.PA_URL = getUrlParameter('pat')
 	$scope.lang = {
 		loading: 'Đang tải dữ liệu...',
 		pattern: 'Mẫu',
@@ -40,11 +40,12 @@ app.controller('mainControl', function ($scope, $http, $location) {
 	}).then(function (response) {
 		$scope.data = eval(response.data.settings);
 
-		if($scope.CAT_URL && $scope.CAT_URL != 'undefined'){
-			getMaterial($scope.CAT_URL, $scope, $http)
+		if ($scope.CAT_URL && $scope.CAT_URL != 'undefined') {
+			$rootScope.dataCat = $scope.CAT_URL
+			getMaterial($scope.CAT_URL, $scope, $http, $rootScope)
 		}
-		if($scope.PA_URL && $scope.PA_URL != 'undefined'){
-			doSetMaterial($scope.PA_URL, $scope, $http)
+		if ($scope.PA_URL && $scope.PA_URL != 'undefined') {
+			doSetMaterial($scope.PA_URL, $scope, $http, $rootScope)
 		}
 
 	}, function (error) {
@@ -52,26 +53,27 @@ app.controller('mainControl', function ($scope, $http, $location) {
 	});
 
 	$scope.setPattern = function (e) {
-		doSetMaterial(e, $scope, $http)
+		doSetMaterial(e, $scope, $http, $rootScope)
 	}
 
 });
 // Child Controller
-app.controller('getMenuMaterial', function ($scope, $http) {
+app.controller('getMenuMaterial', function ($scope, $http, $rootScope) {
 	$http({
 		method: 'GET',
-		url: baoNguyenApp.API.menu
+		url: baoNguyenApp.API.URL + baoNguyenApp.API.menu,
 	}).then(function (response) {
 		$scope.menus = eval(response.data.menu);
-		$scope.ctrlClickHandler = function (e) {
-			getMaterial(e, $scope, $http)
+		$scope.ctrlClickHandler = function (e, m) {
+			$rootScope.index = m
+			getMaterial(e, $scope, $http, $rootScope)
 		}
 	}, function (error) {
 		console.log('Lỗi Menu: ' + error);
 	});
 });
 
-function getMaterial(el, $scope, $http) {
+function getMaterial(el, $scope, $http, $rootScope) {
 	// Phân trang
 	$scope.dataCat = el
 	$scope.lists = []
@@ -116,9 +118,10 @@ function getMaterial(el, $scope, $http) {
 	$scope.showloading = true
 	$http({
 		method: 'GET',
-		url: baoNguyenApp.API.material + "?id=" + el
+		url: baoNguyenApp.API.URL +  baoNguyenApp.API.material + "?id=" + el
 	}).then(function (response) {
 		$scope.materials = eval(response.data.lists);
+		$rootScope.dataCat = el
 		// Phân trang
 		$scope.totalItems = response.data.lists.length;
 		$scope.lists = $scope.materials.slice((($scope.currentPage - 1) * $scope.itemsPerPage), (($scope.currentPage) * $scope.itemsPerPage))
@@ -133,7 +136,7 @@ function getMaterial(el, $scope, $http) {
 	}
 
 	$scope.saveImage = function () {
-		$scope.imageSave.toBlob(function(blob) {
+		$scope.imageSave.toBlob(function (blob) {
 			saveAs(blob, "pretty image.png");
 		});
 	}
@@ -150,11 +153,30 @@ function getMaterial(el, $scope, $http) {
 	}
 }
 
-function doSetMaterial(e, $scope, $http) {
+function doSetMaterial(e, $scope, $http, $rootScope) {
 	$scope.showloadingmaterial = true
 	$scope.showdone = true
 	$scope.dataPat = e
-	$('.apply-content').html(e)
+	$http({
+		method: 'GET',
+		url: baoNguyenApp.API.URL +  baoNguyenApp.API.material + "?id=" + $rootScope.dataCat
+	}).then(function (response) {
+		$scope.data = eval(response.data.lists);
+		let newArray = $scope.data.filter(function (el) {
+			return el.code == e
+		});
+		if($rootScope.index == 4) {
+			$('.blockprodis-goiom .goiom').css({
+				"background": newArray[0].color[0]
+			})
+		} else {
+			$('.blockprodis-goiom .goiom').css({
+				"background": newArray[0].color[0]
+			})
+		}
+	}, function (error) {
+		console.log('Lỗi Data: ' + error);
+	});
 	$scope.showloadingmaterial = false
 }
 
@@ -166,13 +188,15 @@ function doneBuilder($scope, $http) {
 		logging: false
 	}).then(canvas => {
 		var dataURL = canvas.toDataURL();
-		$('#resultsdraw').html('<img class="img-fluid" src="'+dataURL+'">')
+		$('#resultsdraw').html('<img class="img-fluid" src="' + dataURL + '">')
+		$('#drawimages').hide()
 		$scope.imageSave = canvas
 		$scope.imageSaveBASE64 = dataURL
-		
+
 	});
 	$scope.showloadingmaterial = false
 }
+
 function getUrlParameter(param, dummyPath) {
 	var sPageURL = dummyPath || window.location.search.substring(1),
 		sURLVariables = sPageURL.split(/[&||?]/),

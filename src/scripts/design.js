@@ -1,9 +1,11 @@
 var baoNguyenApp = {
 	// API hệ thống 
 	API: {
+		URL: "http://preview8611.canhcam.com.vn",
 		main: './db/main.json',
-		menu: './db/menu.json',
-		material: './db/material.json',
+		menu: '/Product/Services/Api/Drap/List.ashx',
+		// menu: './db/menu.json',
+		material: '/Product/Services/Api/Drap/Detail.ashx',
 	},
 	// Bật loadding 
 	loading: (i) => {
