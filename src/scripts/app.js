@@ -68,6 +68,12 @@ app.controller('getMenuMaterial', function ($scope, $http, $rootScope) {
 			$rootScope.index = m
 			getMaterial(e, $scope, $http, $rootScope)
 		}
+		// let oldW = document.getElementById('drawimages').clientWidth
+		// let newW = (oldW*100) / 1500
+		// $('#allimg').css({
+		// 	// "transform": "scale("+newW/100+")"
+		// })
+		// console.log(newW)
 	}, function (error) {
 		console.log('Lỗi Menu: ' + error);
 	});
@@ -165,13 +171,31 @@ function doSetMaterial(e, $scope, $http, $rootScope) {
 		let newArray = $scope.data.filter(function (el) {
 			return el.code == e
 		});
-		if($rootScope.index == 4) {
+		if($rootScope.index == 0) {
+			$('.blockprodis-nem .nem').css({
+				"background-color": newArray[0].color[0]
+			})
+		} else if($rootScope.index == 2) {
 			$('.blockprodis-goiom .goiom').css({
-				"background": newArray[0].color[0]
+				"background-color": newArray[0].color[0]
+			})
+		} else if($rootScope.index == 1) {
+			$('.blockprodis-goi .goi').css({
+				"background-color": newArray[0].color[0]
+			})
+		} else if($rootScope.index == 3) {
+			$('.blockprodis-men-b .men-b').css({
+				"background-color": newArray[0].color[0]
+			})
+			$('.blockprodis-men-f .men-f').css({
+				"background-color": newArray[0].color[0]
 			})
 		} else {
-			$('.blockprodis-goiom .goiom').css({
-				"background": newArray[0].color[0]
+			$('.blockprodis-men-b .men-b').css({
+				"background-color": newArray[0].color[1]
+			})
+			$('.blockprodis-men-f .men-f').css({
+				"background-color": newArray[0].color[0]
 			})
 		}
 	}, function (error) {

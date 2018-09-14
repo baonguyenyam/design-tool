@@ -1,27 +1,111 @@
 
 #drawimages 
 	position: relative
-	.blockprodis-goiom
+	width: 100%
+	figure
+		position: relative
+		img 
+			max-width: 100%
+	.blockprodis-nem
 		position: absolute
-		top: 20%
-		left: 50%
-		transform: translateX(-50%) scale(.8)
-		.goiom
-			width: 562px
-			height: 223px
-			-webkit-mask-image: url('../img/goiom.png')
-			mask-image: url('../img/goiom.png')
-			webkit-mask-image: url('../img/goiom.png')
-			mask-mode: alpha
-			webkit-mask-mode: alpha
-			-webkit-mask-repeat: no-repeat
-			mask-repeat: no-repeat
-			webkit-mask-repeat: no-repeat
-			-webkit-mask-position: center
-			mask-position: center
-			webkit-mask-position: center
-		.goiom-cover
+		// transform: translateX(-50%)
+		// background-image: url('../img/nem-w.png')
+		top: 0
+		left: 0
+		z-index: 1
+		width: 100%
+		height: 100%
+		.nem
+			width: 100%
+			height: 100%
 			position: absolute
 			top: 0
-			width: 562px
-			height: 223px
+			left: 0
+			background-image: url('../img/nem-w.png')
+			-webkit-mask-image: url('../img/nem.png')
+			background-blend-mode: multiply
+			-webkit-mask-size: 100%
+			background-size: 100%
+	.blockprodis-men-b
+		position: absolute
+		// transform: translateX(-50%)
+		// background-image: url('../img/men-b-w.png')
+		top: 0
+		left: 0
+		z-index: 2
+		width: 100%
+		height: 100%
+		.men-b
+			width: 100%
+			height: 100%
+			position: absolute
+			top: 0
+			left: 0
+			background-image: url('../img/men-b-w.png')
+			-webkit-mask-image: url('../img/men-b.png')
+			background-blend-mode: multiply
+			-webkit-mask-size: 100%
+			background-size: 100%
+	.blockprodis-men-f
+		position: absolute
+		// transform: translateX(-50%)
+		// background-image: url('../img/men-f-w.png')
+		top: 0
+		left: 0
+		z-index: 3
+		width: 100%
+		height: 100%
+		.men-f
+			width: 100%
+			height: 100%
+			position: absolute
+			top: 0
+			left: 0
+			background-image: url('../img/men-f-w.png')
+			-webkit-mask-image: url('../img/men-f.png')
+			background-blend-mode: multiply
+			-webkit-mask-size: 100%
+			background-size: 100%
+	.blockprodis-goi
+		position: absolute
+		// transform: translateX(-50%)
+		// background-image: url('../img/goi-w.png')
+		top: 0
+		left: 0
+		z-index: 4
+		width: 100%
+		height: 100%
+		.goi
+			width: 100%
+			height: 100%
+			position: absolute
+			top: 0
+			left: 0
+			background-image: url('../img/goi-w.png')
+			-webkit-mask-image: url('../img/goi.png')
+			background-blend-mode: multiply
+			-webkit-mask-size: 100%
+			background-size: 100%
+	.blockprodis-goiom
+		position: absolute
+		// transform: translateX(-50%)
+		// background-image: url('../img/goiom-w.png')
+		top: 0
+		left: 0
+		z-index: 5
+		width: 100%
+		height: 100%
+		.goiom
+			width: 100%
+			height: 100%
+			position: absolute
+			top: 0
+			left: 0
+			background-image: url('../img/goiom-w.png')
+			-webkit-mask-image: url('../img/goiom.png')
+			background-blend-mode: multiply
+			-webkit-mask-size: 100%
+			background-size: 100%
+// .abc 
+// 	.clip-svg
+// 		clip-path: url(#myClip)
