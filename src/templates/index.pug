@@ -109,9 +109,9 @@ block body
 								h2.h4.text-uppercase {{settings.name}}
 								p.mb-0.text-muted {{settings.desc}}
 							//- Hoàn thành 
-							.pagebottom-done(ng-show="showdone")
+							//- .pagebottom-done(ng-show="showdone")
 								a.btn.btn-default.btn-block(ng-href="javascript:void(0);" ng-click="buildImage()") {{lang.done}}
-							.done-bar(ng-show="buildimagedone")
+							.done-bar
 								ul.nav.mb-0
 									li.nav-item 
 										a.btn.btn-default(ng-href="javascript:void(0);" ng-click="shareImage()")

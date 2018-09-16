@@ -19,7 +19,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 	$scope.materials = []
 	$scope.showloadingmaterial = false
 	$scope.showdone = false
-	$scope.buildimagedone = false
+	// $scope.buildimagedone = false
 	$scope.CAT_URL = getUrlParameter('productid'),
 		$scope.PA_URL = getUrlParameter('pat')
 	$scope.lang = {
@@ -40,24 +40,87 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 	}).then(function (response) {
 		$scope.settings = eval(response.data.settings);
 
-		// if ($scope.CAT_URL && $scope.CAT_URL != 'undefined') {
-			// $rootScope.dataCat = $scope.CAT_URL
-		// 	// getMaterial($scope.CAT_URL, $scope, $http, $rootScope)
-		// }
-		// if ($scope.PA_URL && $scope.PA_URL != 'undefined') {
-		// 	var nep =  $scope.PA_URL.split(",")
-		// 	for (let index = 0; index < nep.length; index++) {				
-		// 		console.log(nep[index])
-		// 		doSetMaterial(nep[index], $scope, $http, $rootScope)
-		// 	}
-		// }
-
 	}, function (error) {
 		console.log('Lỗi Data: ' + error);
 	});
 
 	$scope.setPattern = function (e) {
 		doSetMaterial(e, $scope, $http, $rootScope)
+	}
+
+	$scope.buildImage = function () {
+		doneBuilder($scope)
+	}
+
+	$scope.saveImage = function () {
+
+		html2canvas(document.querySelector("#drawimages"), {
+			logging: false
+		}).then(canvas => {
+			var dataURL = canvas.toDataURL();
+			$scope.imageSave = canvas
+			$scope.imageSaveBASE64 = dataURL
+			$scope.imageSave.toBlob(function (blob) {
+				saveAs(blob, "LIENA-PRO.png");
+			});
+		});
+
+	}
+	$scope.shareImage = function () {
+		html2canvas(document.querySelector("#drawimages"), {
+			logging: false
+		}).then(canvas => {
+			var dataURL = canvas.toDataURL();
+			$scope.imageSave = canvas
+			$scope.imageSaveBASE64 = dataURL
+
+			let dataToOrder = {
+				image: $scope.imageSaveBASE64,
+				productId: parseInt($scope.CAT_URL),
+				pat: ($rootScope.dataPat).toString()
+			}
+			$http({
+				method: 'POST',
+				url: baoNguyenApp.API.URL + baoNguyenApp.API.share, 
+				data: dataToOrder
+			}).then(function (response) {
+				if(response.success) {
+					window.location.href = response.success.redirect;
+				}
+			}, function (error) {
+				console.log('Lỗi Save: ' + error);
+			});
+
+		});
+	}
+	$scope.order = function () {
+		
+		html2canvas(document.querySelector("#drawimages"), {
+			logging: false
+		}).then(canvas => {
+			var dataURL = canvas.toDataURL();
+			$scope.imageSave = canvas
+			$scope.imageSaveBASE64 = dataURL
+
+			let dataToOrder = {
+				image: $scope.imageSaveBASE64,
+				productId: parseInt($scope.CAT_URL),
+				pat: ($rootScope.dataPat).toString()
+			}
+			$http({
+				method: 'POST',
+				url: baoNguyenApp.API.URL + baoNguyenApp.API.save, 
+				data: dataToOrder
+			}).then(function (response) {
+				if(response.success) {
+					window.location.href = response.success.redirect;
+				}
+			}, function (error) {
+				console.log('Lỗi Save: ' + error);
+			});
+
+		});
+
 	}
 
 });
@@ -89,6 +152,7 @@ app.controller('getMenuMaterial', function ($scope, $http, $rootScope) {
 					console.log('Lỗi Material: ' + error);
 				});
 			}
+			// doneBuilder($scope, $http)
 		}
 	}, function (error) {
 		console.log('Lỗi Menu: ' + error);
@@ -153,36 +217,7 @@ function getMaterial(el, $scope, $http, $rootScope) {
 		console.log('Lỗi Material: ' + error);
 	});
 
-	$scope.buildImage = function () {
-		doneBuilder($scope, $http)
-	}
 
-	$scope.saveImage = function () {
-		$scope.imageSave.toBlob(function (blob) {
-			saveAs(blob, "pretty image.png");
-		});
-	}
-	$scope.shareImage = function () {
-		console.log($scope.imageSaveBASE64)
-	}
-	$scope.order = function () {
-		let dataToOrder = {
-			image: $scope.imageSaveBASE64,
-			productId: parseInt($scope.CAT_URL),
-			pat: ($rootScope.dataPat).toString()
-		}
-		$http({
-			method: 'POST',
-			url: baoNguyenApp.API.URL + baoNguyenApp.API.save, 
-			data: dataToOrder
-		}).then(function (response) {
-			if(response.success) {
-				window.location.href = response.success.redirect;
-			}
-		}, function (error) {
-			console.log('Lỗi Save: ' + error);
-		});
-	}
 }
 
 function doSetMaterial(e, $scope, $http, $rootScope) {
@@ -234,10 +269,9 @@ function getPat(newArray, e, m, $rootScope) {
 	}
 }
 
-function doneBuilder($scope, $http) {
+function doneBuilder($scope) {
 	$scope.showloadingmaterial = true
 	$scope.showdone = false
-	$scope.buildimagedone = true
 	html2canvas(document.querySelector("#drawimages"), {
 		logging: false
 	}).then(canvas => {
@@ -246,7 +280,6 @@ function doneBuilder($scope, $http) {
 		$('#drawimages').hide()
 		$scope.imageSave = canvas
 		$scope.imageSaveBASE64 = dataURL
-
 	});
 	$scope.showloadingmaterial = false
 }

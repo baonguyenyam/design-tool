@@ -5,6 +5,7 @@ var baoNguyenApp = {
 		main: './db/main.json',
 		menu: '/Product/Services/Api/Drap/List.ashx',
 		save: '/Product/Services/Api/Drap/Save.ashx',
+		share: '/Product/Services/Api/Drap/Share.ashx',
 		material: '/Product/Services/Api/Drap/Detail.ashx',
 	},
 	// Bật loadding 
