@@ -20,7 +20,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 	$scope.showloadingmaterial = false
 	$scope.showdone = false
 	$scope.buildimagedone = false
-	$scope.CAT_URL = getUrlParameter('cat'),
+	$scope.CAT_URL = getUrlParameter('productid'),
 		$scope.PA_URL = getUrlParameter('pat')
 	$scope.lang = {
 		loading: 'Đang tải dữ liệu...',
@@ -40,13 +40,17 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 	}).then(function (response) {
 		$scope.settings = eval(response.data.settings);
 
-		if ($scope.CAT_URL && $scope.CAT_URL != 'undefined') {
-			$rootScope.dataCat = $scope.CAT_URL
-			getMaterial($scope.CAT_URL, $scope, $http, $rootScope)
-		}
-		if ($scope.PA_URL && $scope.PA_URL != 'undefined') {
-			doSetMaterial($scope.PA_URL, $scope, $http, $rootScope)
-		}
+		// if ($scope.CAT_URL && $scope.CAT_URL != 'undefined') {
+		// 	$rootScope.dataCat = $scope.CAT_URL
+		// 	getMaterial($scope.CAT_URL, $scope, $http, $rootScope)
+		// }
+		// if ($scope.PA_URL && $scope.PA_URL != 'undefined') {
+		// 	var nep =  $scope.PA_URL.split(",")
+		// 	for (let index = 0; index < nep.length; index++) {				
+		// 		console.log(nep[index])
+		// 		doSetMaterial(nep[index], $scope, $http, $rootScope)
+		// 	}
+		// }
 
 	}, function (error) {
 		console.log('Lỗi Data: ' + error);
@@ -68,12 +72,23 @@ app.controller('getMenuMaterial', function ($scope, $http, $rootScope) {
 			$rootScope.index = m
 			getMaterial(e, $scope, $http, $rootScope)
 		}
-		// let oldW = document.getElementById('drawimages').clientWidth
-		// let newW = (oldW*100) / 1500
-		// $('#allimg').css({
-		// 	// "transform": "scale("+newW/100+")"
-		// })
-		// console.log(newW)
+		if ($scope.PA_URL && $scope.PA_URL != 'undefined') {
+			var empIds = $scope.PA_URL.split(",")
+			for (let index = 0; index < $scope.menus.length; index++) {
+				$http({
+					method: 'GET',
+					url: baoNguyenApp.API.URL + baoNguyenApp.API.material + "?id=" + $scope.menus[index].id
+				}).then(function (data) {
+					$scope.data = eval(data.data.lists);
+					var filteredArray = $scope.data.filter(function(itm){
+						return empIds.indexOf(''+itm.id+'') > -1;
+					});
+					getPat(filteredArray, index)
+				}, function (error) {
+					console.log('Lỗi Material: ' + error);
+				});
+			}
+		}
 	}, function (error) {
 		console.log('Lỗi Menu: ' + error);
 	});
@@ -124,7 +139,7 @@ function getMaterial(el, $scope, $http, $rootScope) {
 	$scope.showloading = true
 	$http({
 		method: 'GET',
-		url: baoNguyenApp.API.URL +  baoNguyenApp.API.material + "?id=" + el
+		url: baoNguyenApp.API.URL + baoNguyenApp.API.material + "?id=" + el
 	}).then(function (response) {
 		$scope.materials = eval(response.data.lists);
 		$rootScope.dataCat = el
@@ -165,43 +180,47 @@ function doSetMaterial(e, $scope, $http, $rootScope) {
 	$scope.dataPat = e
 	$http({
 		method: 'GET',
-		url: baoNguyenApp.API.URL +  baoNguyenApp.API.material + "?id=" + $rootScope.dataCat
+		url: baoNguyenApp.API.URL + baoNguyenApp.API.material + "?id=" + $rootScope.dataCat
 	}).then(function (response) {
 		$scope.data = eval(response.data.lists);
 		let newArray = $scope.data.filter(function (el) {
-			return el.code == e
+			return el.id == e
 		});
-		if($rootScope.index == 0) {
-			$('.blockprodis-nem .nem').css({
-				"background-color": newArray[0].color[0]
-			})
-		} else if($rootScope.index == 2) {
-			$('.blockprodis-goiom .goiom').css({
-				"background-color": newArray[0].color[0]
-			})
-		} else if($rootScope.index == 1) {
-			$('.blockprodis-goi .goi').css({
-				"background-color": newArray[0].color[0]
-			})
-		} else if($rootScope.index == 3) {
-			$('.blockprodis-men-b .men-b').css({
-				"background-color": newArray[0].color[0]
-			})
-			$('.blockprodis-men-f .men-f').css({
-				"background-color": newArray[0].color[0]
-			})
-		} else {
-			$('.blockprodis-men-b .men-b').css({
-				"background-color": newArray[0].color[1]
-			})
-			$('.blockprodis-men-f .men-f').css({
-				"background-color": newArray[0].color[0]
-			})
-		}
+		getPat(newArray, $rootScope.index)
 	}, function (error) {
 		console.log('Lỗi Data: ' + error);
 	});
 	$scope.showloadingmaterial = false
+}
+
+function getPat(newArray, e) {
+	if (e == 0) {
+		$('.blockprodis-nem .nem').css({
+			"background-color": newArray[0].color[0]
+		})
+	} else if (e == 2) {
+		$('.blockprodis-goiom .goiom').css({
+			"background-color": newArray[0].color[0]
+		})
+	} else if (e == 1) {
+		$('.blockprodis-goi .goi').css({
+			"background-color": newArray[0].color[0]
+		})
+	} else if (e == 3) {
+		$('.blockprodis-men-b .men-b').css({
+			"background-color": newArray[0].color[0]
+		})
+		$('.blockprodis-men-f .men-f').css({
+			"background-color": newArray[0].color[0]
+		})
+	} else {
+		$('.blockprodis-men-b .men-b').css({
+			"background-color": newArray[0].color[1]
+		})
+		$('.blockprodis-men-f .men-f').css({
+			"background-color": newArray[0].color[0]
+		})
+	}
 }
 
 function doneBuilder($scope, $http) {
