@@ -173,18 +173,21 @@
 								min-width: 60px
 								min-height: 80px
 								background: #dfdfdf
-								
+								box-shadow: inset 0px 0 0 1px darken($whites,10%)
 							.text
 								color: darken($whites,60%)
 								+pad(.75rem )
 								+fz(.85rem)
 								display: flex
 								flex-direction: column
+								align-items: center
+								justify-content: center
 								strong
 									+fw(500)
 									+lh(1rem)
 								span 
 									display: block
+									+fz(1.3rem)
 						&:hover, &.active
 							&:before 
 								box-shadow: 0 0 5px 2px rgba(0,0,0,.15), 0 0 0 1px $liena inset, 0 0 40px rgba(0, 0, 0, 0.1)
