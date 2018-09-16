@@ -41,8 +41,8 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 		$scope.settings = eval(response.data.settings);
 
 		// if ($scope.CAT_URL && $scope.CAT_URL != 'undefined') {
-		// 	$rootScope.dataCat = $scope.CAT_URL
-		// 	getMaterial($scope.CAT_URL, $scope, $http, $rootScope)
+			// $rootScope.dataCat = $scope.CAT_URL
+		// 	// getMaterial($scope.CAT_URL, $scope, $http, $rootScope)
 		// }
 		// if ($scope.PA_URL && $scope.PA_URL != 'undefined') {
 		// 	var nep =  $scope.PA_URL.split(",")
@@ -73,6 +73,7 @@ app.controller('getMenuMaterial', function ($scope, $http, $rootScope) {
 			getMaterial(e, $scope, $http, $rootScope)
 		}
 		if ($scope.PA_URL && $scope.PA_URL != 'undefined') {
+			$rootScope.dataPat = $scope.PA_URL.split(",")
 			var empIds = $scope.PA_URL.split(",")
 			for (let index = 0; index < $scope.menus.length; index++) {
 				$http({
@@ -83,7 +84,7 @@ app.controller('getMenuMaterial', function ($scope, $http, $rootScope) {
 					var filteredArray = $scope.data.filter(function(itm){
 						return empIds.indexOf(''+itm.id+'') > -1;
 					});
-					getPat(filteredArray, index)
+					getPat(filteredArray, index, filteredArray[0].id, $rootScope)
 				}, function (error) {
 					console.log('Lỗi Material: ' + error);
 				});
@@ -166,18 +167,27 @@ function getMaterial(el, $scope, $http, $rootScope) {
 	}
 	$scope.order = function () {
 		let dataToOrder = {
-			img: $scope.imageSaveBASE64,
-			cat: $scope.dataCat,
-			pat: $scope.dataPat
+			image: $scope.imageSaveBASE64,
+			productId: parseInt($scope.CAT_URL),
+			pat: ($rootScope.dataPat).toString()
 		}
-		console.log(dataToOrder)
+		$http({
+			method: 'POST',
+			url: baoNguyenApp.API.URL + baoNguyenApp.API.save, 
+			data: dataToOrder
+		}).then(function (response) {
+			if(response.success) {
+				window.location.href = response.success.redirect;
+			}
+		}, function (error) {
+			console.log('Lỗi Save: ' + error);
+		});
 	}
 }
 
 function doSetMaterial(e, $scope, $http, $rootScope) {
 	$scope.showloadingmaterial = true
 	$scope.showdone = true
-	$scope.dataPat = e
 	$http({
 		method: 'GET',
 		url: baoNguyenApp.API.URL + baoNguyenApp.API.material + "?id=" + $rootScope.dataCat
@@ -186,14 +196,15 @@ function doSetMaterial(e, $scope, $http, $rootScope) {
 		let newArray = $scope.data.filter(function (el) {
 			return el.id == e
 		});
-		getPat(newArray, $rootScope.index)
+		getPat(newArray, $rootScope.index, e, $rootScope)
 	}, function (error) {
 		console.log('Lỗi Data: ' + error);
 	});
 	$scope.showloadingmaterial = false
 }
 
-function getPat(newArray, e) {
+function getPat(newArray, e, m, $rootScope) {
+	$rootScope.dataPat[e] = m
 	if (e == 0) {
 		$('.blockprodis-nem .nem').css({
 			"background-color": newArray[0].color[0]

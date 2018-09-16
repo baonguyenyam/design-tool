@@ -4,7 +4,7 @@ var baoNguyenApp = {
 		URL: "http://preview8611.canhcam.com.vn",
 		main: './db/main.json',
 		menu: '/Product/Services/Api/Drap/List.ashx',
-		// menu: './db/menu.json',
+		save: '/Product/Services/Api/Drap/Save.ashx',
 		material: '/Product/Services/Api/Drap/Detail.ashx',
 	},
 	// Bật loadding 
@@ -49,7 +49,7 @@ function toggleMenuChild(el) {
 $(document).ready(() => {
 	baoNguyenApp.init()
 	baoNguyenApp.fetch(baoNguyenApp.API.main, 'GET', (e) => {
-		console.log(e.responseJSON)
+		// console.log(e.responseJSON)
 	})
 	
 });
