@@ -84,8 +84,8 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 				url: baoNguyenApp.API.URL + baoNguyenApp.API.share, 
 				data: dataToOrder
 			}).then(function (response) {
-				if(response.success) {
-					window.location.href = response.success.redirect;
+				if(response.data.success) {
+					window.location.href = response.data.cartpageurl;
 				}
 			}, function (error) {
 				console.log('Lỗi Save: ' + error);
@@ -112,8 +112,8 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 				url: baoNguyenApp.API.URL + baoNguyenApp.API.save, 
 				data: dataToOrder
 			}).then(function (response) {
-				if(response.success) {
-					window.location.href = response.success.redirect;
+				if(response.data.success) {
+					window.location.href = response.data.cartpageurl;
 				}
 			}, function (error) {
 				console.log('Lỗi Save: ' + error);

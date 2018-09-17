@@ -98,7 +98,7 @@ block body
 								h4.h4.mb-2 {{lang.noitem}}
 								p.lead {{lang.notice}}
 							ul.list-item
-								li.item(ng-repeat="item in lists" onclick="toggleMenuChild(this)" ng-click="setPattern(item.code)", ng-class="{'active': PA_URL == item.code}")
+								li.item(ng-repeat="item in lists" onclick="toggleMenuChild(this)" ng-click="setPattern(item.id)", ng-class="{'active': PA_URL == item.id}")
 									.box
 										.color(ng-style="{'background':'linear-gradient(127deg, '+item.color[0]+' 0%, '+item.color[0]+' 50%, '+item.color[1]+' 50%, '+item.color[1]+' 100%)'}", ng-if="item.color[1].length > 0")
 										.color(ng-style="{'background':''+item.color[0]+''}", ng-if="item.color[1].length == 0")
