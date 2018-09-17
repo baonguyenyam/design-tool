@@ -16,7 +16,7 @@ block body
 	section.canhcam-design-1(ng-controller="mainControl")
 		.container-fluid-full
 			.row.no-gutters
-				.col-8
+				.col-7
 					.box-product
 						.showloading-material(ng-class="{'active':showloadingmaterial}")
 							.inner
@@ -66,7 +66,7 @@ block body
 							li.nav-item.toggle
 								a(ng-href="javascript:void(0);")
 									em.fas.fa-angle-double-down.fa-fw
-				.col-4.select(ng-controller="getMenuMaterial")
+				.col-5.select(ng-controller="getMenuMaterial")
 					.select-color
 						ul
 							//- Title Menu 
@@ -97,7 +97,7 @@ block body
 							.notice.mt-3(ng-show="!materials.length && !showloading") 
 								h4.h4.mb-2 {{lang.noitem}}
 								p.lead {{lang.notice}}
-							ul.list-item
+							ul.list-item(ng-show="materials.length")
 								li.item(ng-repeat="item in lists" onclick="toggleMenuChild(this)" ng-click="setPattern(item.id)", ng-class="{'active': PA_URL == item.id}")
 									.box
 										.color(ng-style="{'background':'linear-gradient(127deg, '+item.color[0]+' 0%, '+item.color[0]+' 50%, '+item.color[1]+' 50%, '+item.color[1]+' 100%)'}", ng-if="item.color[1].length > 0")
@@ -112,6 +112,7 @@ block body
 							//- .pagebottom-done(ng-show="showdone")
 								a.btn.btn-default.btn-block(ng-href="javascript:void(0);" ng-click="buildImage()") {{lang.done}}
 							.done-bar
+								hr
 								p.text-muted ***Những màu trên đây chịu ảnh hưởng bởi phương pháp in cơ học, do vậy màu sắc trên bảng màu này có thể hơi khác so với màu vải thực tế.
 								ul.nav.mb-0
 									li.nav-item 

@@ -36,9 +36,29 @@ var baoNguyenApp = {
 	}
 }
 
+function setToolPos() {
+	let a = $('.select-nav').outerHeight()
+	let b = $('.select-nav .select-nav-color .notice').outerHeight()
+	let c = $('.select-nav .done-bar').outerHeight()
+	let m = a - c - 50
+	if((a - (b+c)) > 0 && $(window).height() > 600) {
+		$('.select-nav .select-nav-color .notice').height(m)
+	}
+}
+function setToolPosC() {
+	let a = $('.select-nav').outerHeight()
+	let b = $('.select-nav .select-nav-color .list-item').outerHeight()
+	let c = $('.select-nav .done-bar').outerHeight()
+	let m = a - c - 60
+	if((a - (b+c)) > 0 && $(window).height() > 600) {
+		$('.select-nav .select-nav-color .list-item').height(m)
+	}
+}
+
 function toggleMenu(el) {
 	$(el).parents('ul').find('li').removeClass('active')
 	$(el).parents('li').addClass('active')
+	setToolPosC()
 }
 
 function toggleMenuChild(el) {
@@ -52,7 +72,7 @@ $(document).ready(() => {
 	baoNguyenApp.fetch(baoNguyenApp.API.main, 'GET', (e) => {
 		// console.log(e.responseJSON)
 	})
-	
+	setToolPos()
 });
 
 $(window).resize(() => {
