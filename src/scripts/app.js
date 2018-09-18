@@ -57,41 +57,23 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 		html2canvas(document.querySelector("#drawimages"), {
 			logging: false
 		}).then(canvas => {
-			var dataURL = canvas.toDataURL();
+			var dataURL = canvas.toDataURL("image/png");
 			$scope.imageSave = canvas
 			$scope.imageSaveBASE64 = dataURL
 			$scope.imageSave.toBlob(function (blob) {
-				saveAs(blob, "LIENA-PRO.png");
+				saveAs(blob, "liena-"+Math.floor(Math.random() * 999999) + 99999+".png");
 			});
 		});
 
 	}
 	$scope.shareImage = function () {
-		html2canvas(document.querySelector("#drawimages"), {
-			logging: false
-		}).then(canvas => {
-			var dataURL = canvas.toDataURL();
-			$scope.imageSave = canvas
-			$scope.imageSaveBASE64 = dataURL
-
-			let dataToOrder = {
-				image: $scope.imageSaveBASE64,
-				productId: parseInt($scope.CAT_URL),
-				pat: ($rootScope.dataPat).toString()
-			}
-			$http({
-				method: 'POST',
-				url: baoNguyenApp.API.URL + baoNguyenApp.API.share, 
-				data: dataToOrder
-			}).then(function (response) {
-				if(response.data.success) {
-					window.location.href = response.data.cartpageurl;
-				}
-			}, function (error) {
-				console.log('Lỗi Save: ' + error);
-			});
-
-		});
+		let dataToOrder = {
+			productId: parseInt($scope.CAT_URL),
+			pat: ($rootScope.dataPat).toString()
+		}
+		let newsFullPath = document.URL
+		let newsFullPathEncode = encodeURIComponent(document.URL)
+		window.location.href = "https://www.facebook.com/sharer/sharer.php?u="+newsFullPathEncode+"&src=sdkpreparse"
 	}
 	$scope.order = function () {
 		
