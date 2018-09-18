@@ -78,7 +78,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 	$scope.order = function () {
 		
 		html2canvas(document.querySelector("#drawimages"), {
-			logging: false
+			logging: false,
 		}).then(canvas => {
 			var dataURL = canvas.toDataURL();
 			$scope.imageSave = canvas
