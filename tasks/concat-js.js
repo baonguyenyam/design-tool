@@ -11,6 +11,7 @@ module.exports = function(gulp, $, browserSync) {
                 'bower_components/angular-bootstrap/ui-bootstrap.min.js',
                 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'src/vendor/FileSaver.js',
+                // 'src/vendor/dom-to-image.min.js',
                 'src/vendor/html2canvas.min.js',
             ])
             .pipe($.concat('canhcam.js'))

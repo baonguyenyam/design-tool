@@ -54,6 +54,16 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 
 	$scope.saveImage = function () {
 
+		// domtoimage.toPng(document.querySelector("#nem"))
+		// 	.then(function (canvas) {
+		// 		var img = new Image();
+		// 		img.src = canvas;
+		// 		document.body.appendChild(img);
+		// 	})
+		// 	.catch(function (error) {
+		// 		console.error('oops, something went wrong!', error);
+		// 	});
+
 		html2canvas(document.querySelector("#drawimages"), {
 			logging: false
 		}).then(canvas => {
@@ -61,7 +71,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 			$scope.imageSave = canvas
 			$scope.imageSaveBASE64 = dataURL
 			$scope.imageSave.toBlob(function (blob) {
-				saveAs(blob, "liena-"+Math.floor(Math.random() * 999999) + 99999+".png");
+				saveAs(blob, "liena-" + Math.floor(Math.random() * 999999) + 99999 + ".png");
 			});
 		});
 
@@ -73,10 +83,10 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 		}
 		let newsFullPath = document.URL
 		let newsFullPathEncode = encodeURIComponent(document.URL)
-		window.location.href = "https://www.facebook.com/sharer/sharer.php?u="+newsFullPathEncode+"&src=sdkpreparse"
+		window.location.href = "https://www.facebook.com/sharer/sharer.php?u=" + newsFullPathEncode + "&src=sdkpreparse"
 	}
 	$scope.order = function () {
-		
+
 		html2canvas(document.querySelector("#drawimages"), {
 			logging: false,
 		}).then(canvas => {
@@ -91,10 +101,10 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 			}
 			$http({
 				method: 'POST',
-				url: baoNguyenApp.API.URL + baoNguyenApp.API.save, 
+				url: baoNguyenApp.API.URL + baoNguyenApp.API.save,
 				data: dataToOrder
 			}).then(function (response) {
-				if(response.data.success) {
+				if (response.data.success) {
 					window.location.href = response.data.cartpageurl;
 				}
 			}, function (error) {
@@ -126,8 +136,8 @@ app.controller('getMenuMaterial', function ($scope, $http, $rootScope) {
 					url: baoNguyenApp.API.URL + baoNguyenApp.API.material + "?id=" + $scope.menus[index].id
 				}).then(function (data) {
 					$scope.data = eval(data.data.lists);
-					var filteredArray = $scope.data.filter(function(itm){
-						return empIds.indexOf(''+itm.id+'') > -1;
+					var filteredArray = $scope.data.filter(function (itm) {
+						return empIds.indexOf('' + itm.id + '') > -1;
 					});
 					getPat(filteredArray, index, filteredArray[0].id, $rootScope)
 				}, function (error) {
