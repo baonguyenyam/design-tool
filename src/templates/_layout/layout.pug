@@ -28,11 +28,12 @@ html(dir='ltr', lang=config.SEO.seo_lang, itemscope, itemtype="http://schema.org
 		meta(name='msapplication-TileImage', content=config.favicondist+'mstile-144x144.png')
 		meta(name='msapplication-config', content=config.favicondist+'browserconfig.xml')
 		meta(name='theme-color', content='#ffffff')
-	body#top-page(class=bodyclass+'-page' || 'default')
+	body#top-page(class=bodyclass+'-page' || 'default', ng-controller="mainControl")
 		<!-- ////////////// Header ////////////// -->
 		//- include header
 		<!-- ////////////// End Header ////////////// -->
 		<!-- ////////////// Begin Main ////////////// -->
+		//- header(ng-bind-html="settings.header | html")
 		main
 			block body
 		<!-- ////////////// End Main ////////////// -->

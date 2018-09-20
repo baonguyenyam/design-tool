@@ -12,8 +12,7 @@ block body
 		.bar Đang tải dữ liệu...
 		.progress
 			.progress-bar.progress-bar-striped.bg-secondary.progress-bar-animated(role="progressbar" aria-valuenow="100" style="width: 100%" aria-valuemin="0" ariavaluemax="100")
-
-	section.canhcam-design-1(ng-controller="mainControl")
+	section.canhcam-design-1
 		.container-fluid-full
 			.row.no-gutters
 				.col-7
@@ -100,7 +99,7 @@ block body
 							ul.list-item(ng-show="materials.length")
 								li.item(ng-repeat="item in lists" onclick="toggleMenuChild(this)" ng-click="setPattern(item.id)", ng-class="{'active': PA_URL == item.id}")
 									.box
-										.color(ng-style="{'background':'linear-gradient(127deg, '+item.color[0]+' 0%, '+item.color[0]+' 50%, '+item.color[1]+' 50%, '+item.color[1]+' 100%)'}", ng-if="item.color[1].length > 0")
+										.color(ng-style="{'background':'linear-gradient(135deg, '+item.color[0]+' 0%, '+item.color[0]+' 50%, '+item.color[1]+' 50%, '+item.color[1]+' 100%)'}", ng-if="item.color[1].length > 0")
 										.color(ng-style="{'background':''+item.color[0]+''}", ng-if="item.color[1].length == 0")
 										.text 
 											//- strong {{item.name}}
@@ -117,12 +116,15 @@ block body
 								ul.nav.mb-0
 									li.nav-item 
 										a.btn.btn-default(ng-href="javascript:void(0);" ng-click="shareImage()")
+											i.fab.fa-facebook.fa-fw
 											| {{lang.share}}
 									li.nav-item 
 										a.btn.btn-default(ng-href="javascript:void(0);" ng-click="saveImage()")
+											i.fas.fa-save.fa-fw
 											| {{lang.save}}
 									li.nav-item 
 										a.btn.btn-default(ng-href="javascript:void(0);" ng-click="order()")
+											i.fas.fa-shopping-cart.fa-fw
 											| {{lang.booking}}
 							//- Phân trang
 							//- .pagebottom(ng-show="materials.length")

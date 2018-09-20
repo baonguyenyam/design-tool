@@ -2,7 +2,7 @@ var baoNguyenApp = {
 	// API hệ thống 
 	API: {
 		URL: "http://preview8611.canhcam.com.vn",
-		main: './db/main.json',
+		main: '/Product/Services/Api/Drap/PreLoader.ashx',
 		menu: '/Product/Services/Api/Drap/List.ashx',
 		save: '/Product/Services/Api/Drap/Save.ashx',
 		share: '/Product/Services/Api/Drap/Share.ashx',
@@ -69,11 +69,14 @@ function toggleMenuChild(el) {
 // Canh Cam Code
 $(document).ready(() => {
 	baoNguyenApp.init()
-	baoNguyenApp.fetch(baoNguyenApp.API.main, 'GET', (e) => {
+	baoNguyenApp.fetch(baoNguyenApp.API.URL + baoNguyenApp.API.main, 'GET', (e) => {
 		// console.log(e.responseJSON)
 	})
 	setToolPos()
 });
 
 $(window).resize(() => {
+	setTimeout(() => {
+		setToolPos()
+	}, 500);
 });

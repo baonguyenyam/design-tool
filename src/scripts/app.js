@@ -36,10 +36,10 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 	}
 	$http({
 		method: 'GET',
-		url: baoNguyenApp.API.main
+		url: baoNguyenApp.API.URL + baoNguyenApp.API.main,
 	}).then(function (response) {
 		$scope.settings = eval(response.data.settings);
-
+		console.log($scope.settings.header)
 	}, function (error) {
 		console.log('Lỗi Data: ' + error);
 	});
