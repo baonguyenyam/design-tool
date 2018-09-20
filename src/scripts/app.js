@@ -39,7 +39,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 		url: baoNguyenApp.API.URL + baoNguyenApp.API.main,
 	}).then(function (response) {
 		$scope.settings = eval(response.data.settings);
-		console.log($scope.settings.header)
+		// console.log($scope.settings.header)
 	}, function (error) {
 		console.log('Lỗi Data: ' + error);
 	});
@@ -52,21 +52,20 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 		doneBuilder($scope)
 	}
 
+	// var self = this;
+	// self.target1Options = {
+	// 	filename: 'target1.png',
+	// 	downloadText: 'Download me',
+	// 	cancelText: 'Close it!'
+	// };
+
 	$scope.saveImage = function () {
 
-		// domtoimage.toPng(document.querySelector("#nem"))
-		// 	.then(function (canvas) {
-		// 		var img = new Image();
-		// 		img.src = canvas;
-		// 		document.body.appendChild(img);
-		// 	})
-		// 	.catch(function (error) {
-		// 		console.error('oops, something went wrong!', error);
-		// 	});
-
+		// html2canvas(document.querySelector("#drawimages"), {
 		html2canvas(document.querySelector("#drawimages"), {
 			logging: false
 		}).then(canvas => {
+
 			var dataURL = canvas.toDataURL("image/png");
 			$scope.imageSave = canvas
 			$scope.imageSaveBASE64 = dataURL

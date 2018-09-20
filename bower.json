@@ -26,6 +26,7 @@
     "angular-animate": "^1.7.3",
     "angular-sanitize": "^1.7.3",
     "offline": "^0.7.19",
-    "dom-to-image": "^2.6.0"
+    "dom-to-image": "^2.6.0",
+    "angular-screenshot": "^0.4.1"
   }
 }
