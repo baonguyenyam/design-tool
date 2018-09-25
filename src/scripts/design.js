@@ -70,7 +70,7 @@ function toggleMenuChild(el) {
 $(document).ready(() => {
 	baoNguyenApp.init()
 	baoNguyenApp.fetch(baoNguyenApp.API.URL + baoNguyenApp.API.main, 'GET', (e) => {
-		// console.log(e.responseJSON)
+		console.log(e.responseJSON)
 	})
 	setToolPos()
 });
