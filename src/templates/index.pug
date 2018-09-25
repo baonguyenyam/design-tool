@@ -70,7 +70,7 @@ block body
 						ul
 							//- Title Menu 
 							//- li.item.title {{lang.pattern}}
-							li.item(ng-repeat="item in menus" uib-tooltip="Enter something in this input field to disable this tooltip" tooltip-placement="top")
+							li.item(ng-repeat="item in menus" uib-tooltip="Enter something in this input field to disable this tooltip" tooltip-placement="top", ng-class="{'active': $index == 0}")
 								a(ng-href="javascript:void(0);" onclick="toggleMenu(this)" ng-click="ctrlClickHandler(item.id, $index)") 
 									img(ng-src="{{item.icon | html}}")
 									//- em(ng-bind-html="item.icon | html")

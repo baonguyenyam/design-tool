@@ -40,7 +40,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 		url: baoNguyenApp.API.URL + baoNguyenApp.API.main,
 	}).then(function (response) {
 		$scope.settings = eval(response.data.settings);
-		// console.log($scope.settings.header)
+		$scope.header = $scope.settings.header.replace("/Data/Sites/",baoNguyenApp.API.URL+"/Data/Sites/");
 	}, function (error) {
 		console.log('Lỗi Data: ' + error);
 	});
@@ -238,6 +238,8 @@ app.controller('getMenuMaterial', function ($scope, $http, $rootScope) {
 			$rootScope.index = m
 			getMaterial(e, $scope, $http, $rootScope)
 		}
+		$scope.ctrlClickHandler($scope.menus[0].id,  0)
+		
 		if ($scope.PA_URL && $scope.PA_URL != 'undefined') {
 			$rootScope.dataPat = $scope.PA_URL.split(",")
 			var empIds = $scope.PA_URL.split(",")
