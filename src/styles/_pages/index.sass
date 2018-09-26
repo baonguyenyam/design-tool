@@ -107,7 +107,7 @@
 			position: relative
 			min-height: calc(100vh - 60px)
 			height: 100%
-			overflow-y: scroll
+			overflow-y: auto
 			// padding-bottom: 10rem
 			.showloading
 				+pos(abs, 0 null null 0)
@@ -135,8 +135,8 @@
 					display: flex
 					-webkit-flex-flow: row wrap
 					margin: 0 -.25rem
-					overflow: scroll
-					// max-height: calc(100vh - 10rem)
+					overflow: auto
+					max-height: calc(100vh - 15rem)
 					align-content: flex-start
 					.item
 						display: block

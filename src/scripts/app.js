@@ -149,6 +149,8 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 				.catch(error => Array.prototype.concat.bind(error)),
 				Promise.resolve([])
 			);
+
+		console.log($rootScope.genIMG)
 	
 		const funcs = $rootScope.genIMG.map(image => () =>
 			createImage(image.url)
@@ -193,7 +195,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 			pat: ($rootScope.dataPat).toString()
 		}
 		let newsFullPath = document.URL
-		let newsFullPathEncode = encodeURIComponent(document.URL)
+		let newsFullPathEncode = encodeURIComponent(newsFullPath)
 		window.location.href = "https://www.facebook.com/sharer/sharer.php?u=" + newsFullPathEncode + "&src=sdkpreparse"
 	}
 	$scope.order = function () {
@@ -376,44 +378,44 @@ function getPat(newArray, e, m, $rootScope) {
 	if (e == 0) {
 		$rootScope.genIMG[e] = {}
 		$rootScope.genIMG[e].colorCode = newArray[0].color[0]
-		$rootScope.genIMG[e].url = "./../img/nem-w.png"
-		$rootScope.genIMG[e].url_cover = "./../img/nem-s.png"
+		$rootScope.genIMG[e].url = "./img/nem-w.png"
+		$rootScope.genIMG[e].url_cover = "./img/nem-s.png"
 		$rootScope.genIMG[e].index = e
 	} else if (e == 1) {
 		$rootScope.genIMG[e] = {}
 		$rootScope.genIMG[e].colorCode = newArray[0].color[0]
-		$rootScope.genIMG[e].url = "./../img/goi-w.png"
-		$rootScope.genIMG[e].url_cover = "./../img/goi-s.png"
+		$rootScope.genIMG[e].url = "./img/goi-w.png"
+		$rootScope.genIMG[e].url_cover = "./img/goi-s.png"
 		$rootScope.genIMG[e].index = e
 		
 	} else if (e == 2) {
 		$rootScope.genIMG[e] = {}
 		$rootScope.genIMG[e].colorCode = newArray[0].color[0]
-		$rootScope.genIMG[e].url = "./../img/goiom-w.png"
-		$rootScope.genIMG[e].url_cover = "./../img/goiom-s.png"
+		$rootScope.genIMG[e].url = "./img/goiom-w.png"
+		$rootScope.genIMG[e].url_cover = "./img/goiom-s.png"
 		$rootScope.genIMG[e].index = e
 		
 	} else if (e == 3) {
 		$rootScope.genIMG[3] = {}
 		$rootScope.genIMG[4] = {}
 		$rootScope.genIMG[3].colorCode = newArray[0].color[0]
-		$rootScope.genIMG[3].url = "./../img/men-b-w.png"
-		$rootScope.genIMG[e].url_cover = "./../img/men-b-s.png"
+		$rootScope.genIMG[3].url = "./img/men-b-w.png"
+		$rootScope.genIMG[e].url_cover = "./img/men-b-s.png"
 		$rootScope.genIMG[3].index = 3
 		$rootScope.genIMG[4].colorCode = newArray[0].color[0]
-		$rootScope.genIMG[4].url = "./../img/men-f-w.png"
-		$rootScope.genIMG[e].url_cover = "./../img/men-f-s.png"
+		$rootScope.genIMG[4].url = "./img/men-f-w.png"
+		$rootScope.genIMG[e].url_cover = "./img/men-f-s.png"
 		$rootScope.genIMG[4].index = 4
 	} else if (e == 4) {
 		$rootScope.genIMG[3] = {}
 		$rootScope.genIMG[4] = {}
 		$rootScope.genIMG[3].colorCode = newArray[0].color[1]
-		$rootScope.genIMG[3].url = "./../img/men-b-w.png"
-		$rootScope.genIMG[e].url_cover = "./../img/men-b-s.png"
+		$rootScope.genIMG[3].url = "./img/men-b-w.png"
+		$rootScope.genIMG[3].url_cover = "./img/men-b-s.png"
 		$rootScope.genIMG[3].index = 3
 		$rootScope.genIMG[4].colorCode = newArray[0].color[0]
-		$rootScope.genIMG[4].url = "./../img/men-f-w.png"
-		$rootScope.genIMG[e].url_cover = "./../img/men-f-s.png"
+		$rootScope.genIMG[4].url = "./img/men-f-w.png"
+		$rootScope.genIMG[4].url_cover = "./img/men-f-s.png"
 		$rootScope.genIMG[4].index = 4
 	}
 }
