@@ -245,7 +245,7 @@ app.controller('getMenuMaterial', function ($scope, $http, $rootScope) {
 		if ($scope.PA_URL && $scope.PA_URL != 'undefined') {
 			$rootScope.dataPat = $scope.PA_URL.split(",")
 			var empIds = $scope.PA_URL.split(",")
-			for (let index = 0; index < $scope.menus.length; index++) {
+			for (let index = 0; index < empIds.length; index++) {
 				$http({
 					method: 'GET',
 					url: baoNguyenApp.API.URL + baoNguyenApp.API.material + "?id=" + $scope.menus[index].id
@@ -347,6 +347,7 @@ function doSetMaterial(e, $scope, $http, $rootScope) {
 
 function getPat(newArray, e, m, $rootScope) {
 	$rootScope.dataPat[e] = m
+
 	if (e == 0) {
 		$('.blockprodis-nem .nem').css({
 			"background-color": newArray[0].color[0]
@@ -360,6 +361,15 @@ function getPat(newArray, e, m, $rootScope) {
 			"background-color": newArray[0].color[0]
 		})
 	} else if (e == 3) {
+		$('.blockprodis-men-b .men-b').css({
+			"background-color": newArray[0].color[0]
+		})
+		$('.blockprodis-men-f .men-f').css({
+			"background-color": newArray[0].color[0]
+		})
+	}
+
+	if($rootScope.dataCat < 4) {
 		$('.blockprodis-men-b .men-b').css({
 			"background-color": newArray[0].color[0]
 		})
@@ -406,7 +416,20 @@ function getPat(newArray, e, m, $rootScope) {
 		$rootScope.genIMG[4].url = "./img/men-f-w.png"
 		$rootScope.genIMG[e].url_cover = "./img/men-f-s.png"
 		$rootScope.genIMG[4].index = 4
-	} else if (e == 4) {
+	} 
+
+	if($rootScope.dataCat < 4) {
+		$rootScope.genIMG[3] = {}
+		$rootScope.genIMG[4] = {}
+		$rootScope.genIMG[3].colorCode = newArray[0].color[0]
+		$rootScope.genIMG[3].url = "./img/men-b-w.png"
+		$rootScope.genIMG[3].url_cover = "./img/men-b-s.png"
+		$rootScope.genIMG[3].index = 3
+		$rootScope.genIMG[4].colorCode = newArray[0].color[0]
+		$rootScope.genIMG[4].url = "./img/men-f-w.png"
+		$rootScope.genIMG[4].url_cover = "./img/men-f-s.png"
+		$rootScope.genIMG[4].index = 4
+	} else {
 		$rootScope.genIMG[3] = {}
 		$rootScope.genIMG[4] = {}
 		$rootScope.genIMG[3].colorCode = newArray[0].color[1]
@@ -418,6 +441,8 @@ function getPat(newArray, e, m, $rootScope) {
 		$rootScope.genIMG[4].url_cover = "./img/men-f-s.png"
 		$rootScope.genIMG[4].index = 4
 	}
+
+
 }
 
 function doneBuilder($scope) {
