@@ -462,9 +462,8 @@ function doneBuilder($scope) {
 
 function getUrlParameter(param, dummyPath) {
 	var sPageURL = dummyPath || window.location.search.substring(1),
-		sURLVariables = sPageURL.split(/[&||?]/),
+		sURLVariables = sPageURL.replace(/%2C/g, ",").split(/[&||?]/),
 		res;
-
 	for (var i = 0; i < sURLVariables.length; i += 1) {
 		var paramName = sURLVariables[i],
 			sParameterName = (paramName || '').split('=');
