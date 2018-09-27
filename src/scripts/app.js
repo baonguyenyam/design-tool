@@ -16,7 +16,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 	$scope.showloading = false
 	$scope.imageSave = null
 	$rootScope.genIMG = []
-	$scope.imageSaveBASE64 = null
+	$rootScope.imageSaveBASE64 = null
 	$scope.materials = []
 	$scope.showloadingmaterial = false
 	$scope.showdone = false
@@ -150,7 +150,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 				Promise.resolve([])
 			);
 
-		console.log($rootScope.genIMG)
+		// console.log($rootScope.genIMG)
 
 		const funcs = $rootScope.genIMG.map(image => () =>
 			createImage(image.url)
@@ -175,6 +175,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 				imageLink.setAttribute("href", imgBase64);
 				imageLink.setAttribute("download", "liena-" + Math.floor(Math.random() * 999999) + 99999 + ".png");
 
+				$rootScope.imageSaveBASE64 = imgBase64
 				imageLink.style.display = "none";
 				document.body.appendChild(imageLink);
 				imageLink.click();
@@ -187,8 +188,6 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 		});
 	}
 
-
-
 	$scope.shareImage = function () {
 		let dataToOrder = {
 			productId: parseInt($scope.CAT_URL),
@@ -200,18 +199,12 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 	}
 	$scope.order = function () {
 
-		html2canvas(document.querySelector("#drawimages"), {
-			logging: false,
-		}).then(canvas => {
-			var dataURL = canvas.toDataURL();
-			$scope.imageSave = canvas
-			$scope.imageSaveBASE64 = dataURL
-
 			let dataToOrder = {
-				image: $scope.imageSaveBASE64,
+				image: $rootScope.imageSaveBASE64,
 				productId: parseInt($scope.CAT_URL),
 				pat: ($rootScope.dataPat).toString()
 			}
+
 			$http({
 				method: 'POST',
 				url: baoNguyenApp.API.URL + baoNguyenApp.API.save,
@@ -223,9 +216,6 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 			}, function (error) {
 				console.log('Lỗi Save: ' + error);
 			});
-
-		});
-
 	}
 
 });
@@ -346,7 +336,12 @@ function doSetMaterial(e, $scope, $http, $rootScope) {
 }
 
 function getPat(newArray, e, m, $rootScope) {
+
 	$rootScope.dataPat[e] = m
+	
+	if($rootScope.dataPat.length < 5 && e == 4) {
+		$rootScope.dataPat[4] = m
+	}
 
 	if (e == 0) {
 		$('.blockprodis-nem .nem').css({
@@ -411,11 +406,11 @@ function getPat(newArray, e, m, $rootScope) {
 		$rootScope.genIMG[4] = {}
 		$rootScope.genIMG[3].colorCode = newArray[0].color[0]
 		$rootScope.genIMG[3].url = "./img/men-b-w.png"
-		$rootScope.genIMG[e].url_cover = "./img/men-b-s.png"
+		$rootScope.genIMG[3].url_cover = "./img/men-b-s.png"
 		$rootScope.genIMG[3].index = 3
 		$rootScope.genIMG[4].colorCode = newArray[0].color[0]
 		$rootScope.genIMG[4].url = "./img/men-f-w.png"
-		$rootScope.genIMG[e].url_cover = "./img/men-f-s.png"
+		$rootScope.genIMG[4].url_cover = "./img/men-f-s.png"
 		$rootScope.genIMG[4].index = 4
 	} else {
 		if ($rootScope.dataPat.length < 5) {
@@ -442,6 +437,7 @@ function getPat(newArray, e, m, $rootScope) {
 			$rootScope.genIMG[4].index = 4
 		}
 	}
+
 }
 
 function doneBuilder($scope) {
