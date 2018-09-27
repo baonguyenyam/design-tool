@@ -40,7 +40,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 		url: baoNguyenApp.API.URL + baoNguyenApp.API.main,
 	}).then(function (response) {
 		$scope.settings = eval(response.data.settings);
-		$scope.header = $scope.settings.header.replace("/Data/Sites/",baoNguyenApp.API.URL+"/Data/Sites/");
+		$scope.header = $scope.settings.header.replace("/Data/Sites/", baoNguyenApp.API.URL + "/Data/Sites/");
 	}, function (error) {
 		console.log('Lỗi Data: ' + error);
 	});
@@ -69,7 +69,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 			canvas.style.display = 'none'
 			document.body.appendChild(canvas);
 		}
-	
+
 		/**
 		 * Tạo một Image object, có attribute src là đường dẫn imgUrl truyền vào
 		 * @return 1 promise, resolve khi image được load thành công, reject khi có lỗi xảy ra.
@@ -86,8 +86,8 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 				}
 			});
 		};
-	
-	
+
+
 		/**
 		 * Vẽ image với colorCode tương ứng lên canvas, 1 image 1 lần gọi hàm.
 		 * @return 1 promise, resolve khi image được draw thành công, reject khi có lỗi xảy ra.
@@ -101,10 +101,10 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 					//2 canvas được tạo ẩn, và sẽ bị remove khỏi DOM ngay khi download hình ảnh
 					let canvas = document.getElementById("myCanvas");
 					let tempCanvas = document.getElementById("tempCanvas");
-	
+
 					let context = canvas.getContext("2d");
 					let tempContext = tempCanvas.getContext("2d");
-	
+
 					//Vẽ image lên tempCanvas - canvas phụ
 					tempContext.drawImage(image, 0, 0);
 					if (colorCode !== "") {
@@ -114,10 +114,10 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 						tempContext.fillStyle = colorCode;
 						tempContext.fillRect(0, 0, 1500, 1125);
 					}
-	
+
 					//Vẽ nội dung của canvas phụ tempCanvas lên canvas chính, để có thể vẽ nhiều image lên 1 canvas.
 					context.drawImage(tempContext.canvas, 0, 0);
-	
+
 					//Thiết lập canvas phụ về mặc định, để dùng cho lần vẽ tiếp theo
 					tempContext.globalCompositeOperation = "source-over";
 					tempContext.clearRect(
@@ -136,7 +136,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 		//Tạo 2 canvas phục vụ cho việc render hình ảnh và đổ màu
 		createCanvas('myCanvas', 1500, 1125)
 		createCanvas('tempCanvas', 1500, 1125)
-	
+
 		//Cú pháp dùng để gọi 1 series promise theo thứ tự được khai báo trong 1 Array
 		// Code được lấy từ https://hackernoon.com/functional-javascript-resolving-promises-sequentially-7aac18c4431e
 		const serial = funcs =>
@@ -151,35 +151,35 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 			);
 
 		console.log($rootScope.genIMG)
-	
+
 		const funcs = $rootScope.genIMG.map(image => () =>
 			createImage(image.url)
 			.then(img => drawImage(img, image.colorCode))
 			.catch(error => console.log(error))
 		);
-	
+
 		const funcsCover = $rootScope.genIMG.map(image => () =>
 			createImage(image.url_cover)
 			.then(img => drawImage(img, ""))
 			.catch(error => console.log(error))
 		);
-	
+
 		serial(funcs).then(() => {
 			serial(funcsCover).then(() => {
 				let canvas = document.getElementById("myCanvas");
 				let tempCanvas = document.getElementById('tempCanvas')
 				let imgBase64 = canvas.toDataURL();
-	
+
 				//Tạo thẻ a để làm trung gian download, ngay khi download sẽ remove khỏi DOM.
 				let imageLink = document.createElement("a");
 				imageLink.setAttribute("href", imgBase64);
 				imageLink.setAttribute("download", "liena-" + Math.floor(Math.random() * 999999) + 99999 + ".png");
-	
+
 				imageLink.style.display = "none";
 				document.body.appendChild(imageLink);
 				imageLink.click();
 				document.body.removeChild(imageLink);
-	
+
 				//Remove 2 canvas ra khỏi cây DOM
 				document.body.removeChild(canvas);
 				document.body.removeChild(tempCanvas);
@@ -240,8 +240,8 @@ app.controller('getMenuMaterial', function ($scope, $http, $rootScope) {
 			$rootScope.index = m
 			getMaterial(e, $scope, $http, $rootScope)
 		}
-		$scope.ctrlClickHandler($scope.menus[0].id,  0)
-		
+		$scope.ctrlClickHandler($scope.menus[0].id, 0)
+
 		if ($scope.PA_URL && $scope.PA_URL != 'undefined') {
 			$rootScope.dataPat = $scope.PA_URL.split(",")
 			var empIds = $scope.PA_URL.split(",")
@@ -367,23 +367,24 @@ function getPat(newArray, e, m, $rootScope) {
 		$('.blockprodis-men-f .men-f').css({
 			"background-color": newArray[0].color[0]
 		})
+	} else {
+		if ($rootScope.dataPat.length < 5) {
+			$('.blockprodis-men-b .men-b').css({
+				"background-color": newArray[0].color[0]
+			})
+			$('.blockprodis-men-f .men-f').css({
+				"background-color": newArray[0].color[0]
+			})
+		} else {
+			$('.blockprodis-men-b .men-b').css({
+				"background-color": newArray[0].color[1]
+			})
+			$('.blockprodis-men-f .men-f').css({
+				"background-color": newArray[0].color[0]
+			})
+		}
 	}
 
-	if($rootScope.dataCat < 4) {
-		$('.blockprodis-men-b .men-b').css({
-			"background-color": newArray[0].color[0]
-		})
-		$('.blockprodis-men-f .men-f').css({
-			"background-color": newArray[0].color[0]
-		})
-	} else {
-		$('.blockprodis-men-b .men-b').css({
-			"background-color": newArray[0].color[1]
-		})
-		$('.blockprodis-men-f .men-f').css({
-			"background-color": newArray[0].color[0]
-		})
-	}
 
 	if (e == 0) {
 		$rootScope.genIMG[e] = {}
@@ -397,14 +398,14 @@ function getPat(newArray, e, m, $rootScope) {
 		$rootScope.genIMG[e].url = "./img/goi-w.png"
 		$rootScope.genIMG[e].url_cover = "./img/goi-s.png"
 		$rootScope.genIMG[e].index = e
-		
+
 	} else if (e == 2) {
 		$rootScope.genIMG[e] = {}
 		$rootScope.genIMG[e].colorCode = newArray[0].color[0]
 		$rootScope.genIMG[e].url = "./img/goiom-w.png"
 		$rootScope.genIMG[e].url_cover = "./img/goiom-s.png"
 		$rootScope.genIMG[e].index = e
-		
+
 	} else if (e == 3) {
 		$rootScope.genIMG[3] = {}
 		$rootScope.genIMG[4] = {}
@@ -416,33 +417,31 @@ function getPat(newArray, e, m, $rootScope) {
 		$rootScope.genIMG[4].url = "./img/men-f-w.png"
 		$rootScope.genIMG[e].url_cover = "./img/men-f-s.png"
 		$rootScope.genIMG[4].index = 4
-	} 
-
-	if($rootScope.dataCat < 4) {
-		$rootScope.genIMG[3] = {}
-		$rootScope.genIMG[4] = {}
-		$rootScope.genIMG[3].colorCode = newArray[0].color[0]
-		$rootScope.genIMG[3].url = "./img/men-b-w.png"
-		$rootScope.genIMG[3].url_cover = "./img/men-b-s.png"
-		$rootScope.genIMG[3].index = 3
-		$rootScope.genIMG[4].colorCode = newArray[0].color[0]
-		$rootScope.genIMG[4].url = "./img/men-f-w.png"
-		$rootScope.genIMG[4].url_cover = "./img/men-f-s.png"
-		$rootScope.genIMG[4].index = 4
 	} else {
-		$rootScope.genIMG[3] = {}
-		$rootScope.genIMG[4] = {}
-		$rootScope.genIMG[3].colorCode = newArray[0].color[1]
-		$rootScope.genIMG[3].url = "./img/men-b-w.png"
-		$rootScope.genIMG[3].url_cover = "./img/men-b-s.png"
-		$rootScope.genIMG[3].index = 3
-		$rootScope.genIMG[4].colorCode = newArray[0].color[0]
-		$rootScope.genIMG[4].url = "./img/men-f-w.png"
-		$rootScope.genIMG[4].url_cover = "./img/men-f-s.png"
-		$rootScope.genIMG[4].index = 4
+		if ($rootScope.dataPat.length < 5) {
+			$rootScope.genIMG[3] = {}
+			$rootScope.genIMG[4] = {}
+			$rootScope.genIMG[3].colorCode = newArray[0].color[0]
+			$rootScope.genIMG[3].url = "./img/men-b-w.png"
+			$rootScope.genIMG[3].url_cover = "./img/men-b-s.png"
+			$rootScope.genIMG[3].index = 3
+			$rootScope.genIMG[4].colorCode = newArray[0].color[0]
+			$rootScope.genIMG[4].url = "./img/men-f-w.png"
+			$rootScope.genIMG[4].url_cover = "./img/men-f-s.png"
+			$rootScope.genIMG[4].index = 4
+		} else {
+			$rootScope.genIMG[3] = {}
+			$rootScope.genIMG[4] = {}
+			$rootScope.genIMG[3].colorCode = newArray[0].color[1]
+			$rootScope.genIMG[3].url = "./img/men-b-w.png"
+			$rootScope.genIMG[3].url_cover = "./img/men-b-s.png"
+			$rootScope.genIMG[3].index = 3
+			$rootScope.genIMG[4].colorCode = newArray[0].color[0]
+			$rootScope.genIMG[4].url = "./img/men-f-w.png"
+			$rootScope.genIMG[4].url_cover = "./img/men-f-s.png"
+			$rootScope.genIMG[4].index = 4
+		}
 	}
-
-
 }
 
 function doneBuilder($scope) {
