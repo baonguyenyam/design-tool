@@ -198,12 +198,12 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 		window.location.href = "https://www.facebook.com/sharer/sharer.php?u=" + newsFullPathEncode + "&src=sdkpreparse"
 	}
 	$scope.order = function () {
-
 			let dataToOrder = {
 				image: $rootScope.imageSaveBASE64,
 				productId: parseInt($scope.CAT_URL),
 				pat: ($rootScope.dataPat).toString()
 			}
+			// console.log($rootScope.dataPat)
 
 			$http({
 				method: 'POST',
@@ -244,7 +244,7 @@ app.controller('getMenuMaterial', function ($scope, $http, $rootScope) {
 					var filteredArray = $scope.data.filter(function (itm) {
 						return empIds.indexOf('' + itm.id + '') > -1;
 					});
-					getPat(filteredArray, index, filteredArray[0].id, $rootScope)
+					getPat(filteredArray, index, filteredArray[0] ? filteredArray[0].id : null, $rootScope)
 				}, function (error) {
 					console.log('Lỗi Material: ' + error);
 				});
@@ -328,6 +328,11 @@ function doSetMaterial(e, $scope, $http, $rootScope) {
 		let newArray = $scope.data.filter(function (el) {
 			return el.id == e
 		});
+		if($rootScope.index  == 3) {
+			$rootScope.dataPat[4] = null
+		} else if($rootScope.index  == 4) {
+			$rootScope.dataPat[3] = null
+		}
 		getPat(newArray, $rootScope.index, e, $rootScope)
 	}, function (error) {
 		console.log('Lỗi Data: ' + error);
@@ -338,39 +343,36 @@ function doSetMaterial(e, $scope, $http, $rootScope) {
 function getPat(newArray, e, m, $rootScope) {
 
 	$rootScope.dataPat[e] = m
+
 	
-	if($rootScope.dataPat.length < 5 && e == 4) {
-		$rootScope.dataPat[4] = m
+	if(($rootScope.dataPat[e] == null && e == 3) || ($rootScope.dataPat[e] == null && e == 4)) {
+		$rootScope.dataPat[e] = m
 	}
+
 
 	if (e == 0) {
 		$('.blockprodis-nem .nem').css({
-			"background-color": newArray[0].color[0]
-		})
-	} else if (e == 2) {
-		$('.blockprodis-goiom .goiom').css({
 			"background-color": newArray[0].color[0]
 		})
 	} else if (e == 1) {
 		$('.blockprodis-goi .goi').css({
 			"background-color": newArray[0].color[0]
 		})
+	} else if (e == 2) {
+		$('.blockprodis-goiom .goiom').css({
+			"background-color": newArray[0].color[0]
+		})
 	} else if (e == 3) {
-		$('.blockprodis-men-b .men-b').css({
-			"background-color": newArray[0].color[0]
-		})
-		$('.blockprodis-men-f .men-f').css({
-			"background-color": newArray[0].color[0]
-		})
-	} else {
-		if ($rootScope.dataPat.length < 5) {
+		if($rootScope.dataPat[e] != null) {
 			$('.blockprodis-men-b .men-b').css({
 				"background-color": newArray[0].color[0]
 			})
 			$('.blockprodis-men-f .men-f').css({
 				"background-color": newArray[0].color[0]
 			})
-		} else {
+		}
+	} else {
+		if($rootScope.dataPat[e] != null) {
 			$('.blockprodis-men-b .men-b').css({
 				"background-color": newArray[0].color[1]
 			})
@@ -402,18 +404,7 @@ function getPat(newArray, e, m, $rootScope) {
 		$rootScope.genIMG[e].index = e
 
 	} else if (e == 3) {
-		$rootScope.genIMG[3] = {}
-		$rootScope.genIMG[4] = {}
-		$rootScope.genIMG[3].colorCode = newArray[0].color[0]
-		$rootScope.genIMG[3].url = "./img/men-b-w.png"
-		$rootScope.genIMG[3].url_cover = "./img/men-b-s.png"
-		$rootScope.genIMG[3].index = 3
-		$rootScope.genIMG[4].colorCode = newArray[0].color[0]
-		$rootScope.genIMG[4].url = "./img/men-f-w.png"
-		$rootScope.genIMG[4].url_cover = "./img/men-f-s.png"
-		$rootScope.genIMG[4].index = 4
-	} else {
-		if ($rootScope.dataPat.length < 5) {
+		if($rootScope.dataPat[e] != null) {
 			$rootScope.genIMG[3] = {}
 			$rootScope.genIMG[4] = {}
 			$rootScope.genIMG[3].colorCode = newArray[0].color[0]
@@ -424,7 +415,9 @@ function getPat(newArray, e, m, $rootScope) {
 			$rootScope.genIMG[4].url = "./img/men-f-w.png"
 			$rootScope.genIMG[4].url_cover = "./img/men-f-s.png"
 			$rootScope.genIMG[4].index = 4
-		} else {
+		}
+	} else {
+		if($rootScope.dataPat[e] != null) {
 			$rootScope.genIMG[3] = {}
 			$rootScope.genIMG[4] = {}
 			$rootScope.genIMG[3].colorCode = newArray[0].color[1]
@@ -435,9 +428,8 @@ function getPat(newArray, e, m, $rootScope) {
 			$rootScope.genIMG[4].url = "./img/men-f-w.png"
 			$rootScope.genIMG[4].url_cover = "./img/men-f-s.png"
 			$rootScope.genIMG[4].index = 4
-		}
+		} 
 	}
-
 }
 
 function doneBuilder($scope) {
