@@ -191,7 +191,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 	$scope.shareImage = function () {
 		let dataToOrder = {
 			productId: parseInt($scope.CAT_URL),
-			pat: ($rootScope.dataPat).toString()
+			pat: ($rootScope.dataPat.toString()).replace(',,', ',-,')
 		}
 		let newsFullPath = document.URL
 		let newsFullPathEncode = encodeURIComponent(newsFullPath)
@@ -201,10 +201,8 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 			let dataToOrder = {
 				image: $rootScope.imageSaveBASE64,
 				productId: parseInt($scope.CAT_URL),
-				pat: ($rootScope.dataPat).toString()
+				pat: ($rootScope.dataPat.toString()).replace(',,', ',-,')
 			}
-			// console.log($rootScope.dataPat)
-
 			$http({
 				method: 'POST',
 				url: baoNguyenApp.API.URL + baoNguyenApp.API.save,

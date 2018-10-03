@@ -16,6 +16,9 @@ header
 	background-color: #0d1d42
 	display: flex
 	align-items: center
+	.close
+		a 
+			color: #fff
 	.overlay, 
 	.btn-showmenu,
 	.tool-right,
@@ -23,16 +26,19 @@ header
 	.sitelogo-mb
 		display: none
 	.container
-		display: flex
+		// display: flex
 		align-items: center
+		max-width: initial
+		padding-left: 2rem
 		.sitelogo
 			display: flex
 			margin-right: auto
 			img
 				width: 112px
+		
 		.col-right
 			justify-content: flex-end
-			display: flex
+			display: none
 			ul 
 				li 
 					a 

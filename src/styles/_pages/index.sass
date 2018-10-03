@@ -160,11 +160,11 @@
 						+media-breakpoint-up(md)
 							width: calc(100% - .5rem)
 						+media-breakpoint-up(lg)
-							width: calc(50% - .5rem)
+							width: calc(33.33333333% - .5rem)
 						@media (min-width: 1400px)
-							width: calc(50% - .5rem)
+							width: calc(33.33333333% - .5rem)
 						@media (min-width: 1600px)
-							width: calc(50% - .5rem)
+							width: calc(33.33333333% - .5rem)
 						.box
 							height: 100%
 							width: 100%
@@ -172,10 +172,10 @@
 							flex-direction: row
 							text-decoration: none
 							.color
-								width: 80px
-								height: 80px
-								min-width: 80px
-								min-height: 80px
+								width: 50px
+								height: 50px
+								min-width: 50px
+								min-height: 50px
 								background: #dfdfdf
 								box-shadow: inset 0px 0 0 1px darken($whites,10%)
 							.text
@@ -254,16 +254,17 @@
 				text-transform: uppercase
 				+bor-rad(0)
 				+fz(1.1rem)
-				color: $liena
+				color: #fff
 				+fw(500)
 				cursor: pointer
 				display: block
 				+pad(.75rem .5rem)
+				background: $liena 
 				i 
 					width: 2rem
 				&:hover, &:active 
-					background: $liena 
-					color: #fff
+					background: #fff
+					color: $liena
 .pagebottom
 	color: #fff 
 	+pos(abs, null 0 0 null)
