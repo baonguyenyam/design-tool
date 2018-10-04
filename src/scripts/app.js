@@ -66,7 +66,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 			canvas.id = canvasId
 			canvas.width = 1500
 			canvas.height = 1125
-			canvas.style.display = 'none'
+			// canvas.style.display = 'none'
 			document.body.appendChild(canvas);
 		}
 
@@ -133,6 +133,27 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 			});
 		};
 
+		/**
+		 * Chuyển base 64 thành blob object
+		 * @param {image dataURI} base64 
+		 */
+		const base64ToBlob = (base64) => {
+			return new Promise((resolve, reject) => {
+				try {
+					let binaryString = atob(base64.split(',')[1]);
+					let base64Array = new Uint8Array(binaryString.length);
+
+					for (let index = 0; index < base64Array.length; index++) {
+						base64Array[index] = binaryString.charCodeAt(index);
+					}
+
+					resolve(new Blob([base64Array]))
+				} catch (error) {
+					reject(error)
+				}
+			})
+		}
+
 		//Tạo 2 canvas phục vụ cho việc render hình ảnh và đổ màu
 		createCanvas('myCanvas', 1500, 1125)
 		createCanvas('tempCanvas', 1500, 1125)
@@ -150,8 +171,6 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 				Promise.resolve([])
 			);
 
-		// console.log($rootScope.genIMG)
-
 		const funcs = $rootScope.genIMG.map(image => () =>
 			createImage(image.url)
 			.then(img => drawImage(img, image.colorCode))
@@ -164,28 +183,63 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 			.catch(error => console.log(error))
 		);
 
-		serial(funcs).then(() => {
-			serial(funcsCover).then(() => {
-				let canvas = document.getElementById("myCanvas");
-				let tempCanvas = document.getElementById('tempCanvas')
-				let imgBase64 = canvas.toDataURL();
 
-				//Tạo thẻ a để làm trung gian download, ngay khi download sẽ remove khỏi DOM.
-				let imageLink = document.createElement("a");
-				imageLink.setAttribute("href", imgBase64);
-				imageLink.setAttribute("download", "liena-" + Math.floor(Math.random() * 999999) + 99999 + ".png");
+		createImage('./img/phoicanh.png')
+			.then(img => drawImage(img, ""))
+			.then(() => {
+				serial(funcs).then(() => {
+					serial(funcsCover).then(() => {
+						let canvas = document.getElementById("myCanvas");
+						let imgBase64 = canvas.toDataURL();
 
-				$rootScope.imageSaveBASE64 = imgBase64
-				imageLink.style.display = "none";
-				document.body.appendChild(imageLink);
-				imageLink.click();
-				document.body.removeChild(imageLink);
+						//Chuyển base64 thành Blob object => Thay đổi cách đưa image data vào attribute href của thẻ a
+						base64ToBlob(imgBase64).then((canvasBlob) => {
+							//Tạo thẻ a để làm trung gian download, ngay khi download sẽ remove khỏi DOM.
+							let imageLink = document.createElement("a");
+							imageLink.setAttribute("href", URL.createObjectURL(canvasBlob));
+							imageLink.setAttribute("download", "liena-" + Math.floor(Math.random() * 999999) + 99999 + ".png");
 
-				//Remove 2 canvas ra khỏi cây DOM
-				document.body.removeChild(canvas);
-				document.body.removeChild(tempCanvas);
-			});
-		});
+							// $rootScope.imageSaveBASE64 = imgBase64
+							imageLink.style.display = "none";
+							document.body.appendChild(imageLink);
+							imageLink.click();
+							document.body.removeChild(imageLink);
+
+							//Remove 2 canvas ra khỏi cây DOM
+							document.body.removeChild(canvas);
+							document.body.removeChild(tempCanvas);
+						})
+					});
+				});
+			})
+			.catch(err => console.log(err));
+
+
+		// createImage('./img/phoicanh.jpg')
+		// 	.then(img => drawImage(img, ""))
+		// 	.then(() => {
+		// 		serial(funcs).then(() => {
+		// 			serial(funcsCover).then(() => {
+		// 				let canvas = document.getElementById("myCanvas");
+		// 				let imgBase64 = canvas.toDataURL();
+		// 				//Tạo thẻ a để làm trung gian download, ngay khi download sẽ remove khỏi DOM.
+		// 				let imageLink = document.createElement("a");
+		// 				imageLink.setAttribute("href", imgBase64);
+		// 				imageLink.setAttribute("download", "liena-" + Math.floor(Math.random() * 999999) + 99999 + ".png");
+
+		// 				$rootScope.imageSaveBASE64 = imgBase64
+		// 				imageLink.style.display = "none";
+		// 				document.body.appendChild(imageLink);
+		// 				imageLink.click();
+		// 				document.body.removeChild(imageLink);
+
+		// 				//Remove 2 canvas ra khỏi cây DOM
+		// 				document.body.removeChild(canvas);
+		// 				document.body.removeChild(tempCanvas);
+		// 			});
+		// 		});
+		// 	})
+		// 	.catch(err => console.log(err));
 	}
 
 	$scope.shareImage = function () {
@@ -198,22 +252,22 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 		window.location.href = "https://www.facebook.com/sharer/sharer.php?u=" + newsFullPathEncode + "&src=sdkpreparse"
 	}
 	$scope.order = function () {
-			let dataToOrder = {
-				image: $rootScope.imageSaveBASE64,
-				productId: parseInt($scope.CAT_URL),
-				pat: ($rootScope.dataPat.toString()).replace(',,', ',-,')
+		let dataToOrder = {
+			image: $rootScope.imageSaveBASE64,
+			productId: parseInt($scope.CAT_URL),
+			pat: ($rootScope.dataPat.toString()).replace(',,', ',-,')
+		}
+		$http({
+			method: 'POST',
+			url: baoNguyenApp.API.URL + baoNguyenApp.API.save,
+			data: dataToOrder
+		}).then(function (response) {
+			if (response.data.success) {
+				window.location.href = response.data.cartpageurl;
 			}
-			$http({
-				method: 'POST',
-				url: baoNguyenApp.API.URL + baoNguyenApp.API.save,
-				data: dataToOrder
-			}).then(function (response) {
-				if (response.data.success) {
-					window.location.href = response.data.cartpageurl;
-				}
-			}, function (error) {
-				console.log('Lỗi Save: ' + error);
-			});
+		}, function (error) {
+			console.log('Lỗi Save: ' + error);
+		});
 	}
 
 });
@@ -326,9 +380,9 @@ function doSetMaterial(e, $scope, $http, $rootScope) {
 		let newArray = $scope.data.filter(function (el) {
 			return el.id == e
 		});
-		if($rootScope.index  == 3) {
+		if ($rootScope.index == 3) {
 			$rootScope.dataPat[4] = null
-		} else if($rootScope.index  == 4) {
+		} else if ($rootScope.index == 4) {
 			$rootScope.dataPat[3] = null
 		}
 		getPat(newArray, $rootScope.index, e, $rootScope)
@@ -342,8 +396,8 @@ function getPat(newArray, e, m, $rootScope) {
 
 	$rootScope.dataPat[e] = m
 
-	
-	if(($rootScope.dataPat[e] == null && e == 3) || ($rootScope.dataPat[e] == null && e == 4)) {
+
+	if (($rootScope.dataPat[e] == null && e == 3) || ($rootScope.dataPat[e] == null && e == 4)) {
 		$rootScope.dataPat[e] = m
 	}
 
@@ -361,7 +415,7 @@ function getPat(newArray, e, m, $rootScope) {
 			"background-color": newArray[0].color[0]
 		})
 	} else if (e == 3) {
-		if($rootScope.dataPat[e] != null) {
+		if ($rootScope.dataPat[e] != null) {
 			$('.blockprodis-men-b .men-b').css({
 				"background-color": newArray[0].color[0]
 			})
@@ -370,7 +424,7 @@ function getPat(newArray, e, m, $rootScope) {
 			})
 		}
 	} else {
-		if($rootScope.dataPat[e] != null) {
+		if ($rootScope.dataPat[e] != null) {
 			$('.blockprodis-men-b .men-b').css({
 				"background-color": newArray[0].color[1]
 			})
@@ -402,7 +456,7 @@ function getPat(newArray, e, m, $rootScope) {
 		$rootScope.genIMG[e].index = e
 
 	} else if (e == 3) {
-		if($rootScope.dataPat[e] != null) {
+		if ($rootScope.dataPat[e] != null) {
 			$rootScope.genIMG[3] = {}
 			$rootScope.genIMG[4] = {}
 			$rootScope.genIMG[3].colorCode = newArray[0].color[0]
@@ -415,7 +469,7 @@ function getPat(newArray, e, m, $rootScope) {
 			$rootScope.genIMG[4].index = 4
 		}
 	} else {
-		if($rootScope.dataPat[e] != null) {
+		if ($rootScope.dataPat[e] != null) {
 			$rootScope.genIMG[3] = {}
 			$rootScope.genIMG[4] = {}
 			$rootScope.genIMG[3].colorCode = newArray[0].color[1]
@@ -426,7 +480,7 @@ function getPat(newArray, e, m, $rootScope) {
 			$rootScope.genIMG[4].url = "./img/men-f-w.png"
 			$rootScope.genIMG[4].url_cover = "./img/men-f-s.png"
 			$rootScope.genIMG[4].index = 4
-		} 
+		}
 	}
 }
 
