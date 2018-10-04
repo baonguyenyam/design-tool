@@ -26,6 +26,7 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 	$scope.lang = {
 		loading: 'Đang tải dữ liệu...',
 		pattern: 'Mẫu',
+		back: 'Trở về',
 		share: 'Chia sẻ',
 		done: 'Hoàn thành',
 		booking: 'Đặt hàng',
@@ -37,9 +38,10 @@ app.controller('mainControl', function ($scope, $http, $rootScope) {
 	}
 	$http({
 		method: 'GET',
-		url: baoNguyenApp.API.URL + baoNguyenApp.API.main,
+		url: baoNguyenApp.API.URL + baoNguyenApp.API.main + "?id=" + $scope.CAT_URL,
 	}).then(function (response) {
 		$scope.settings = eval(response.data.settings);
+		$scope.backURL = response.data.settings.productUrl
 		$scope.header = $scope.settings.header.replace("/Data/Sites/", baoNguyenApp.API.URL + "/Data/Sites/");
 	}, function (error) {
 		console.log('Lỗi Data: ' + error);

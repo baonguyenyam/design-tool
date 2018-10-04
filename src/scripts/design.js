@@ -71,6 +71,9 @@ $(document).ready(() => {
 	baoNguyenApp.init()
 	baoNguyenApp.fetch(baoNguyenApp.API.URL + baoNguyenApp.API.main, 'GET', (e) => {
 		// console.log(e.responseJSON)
+		setTimeout(() => {
+			setToolPosC()
+		}, 500);
 	})
 	setToolPos()
 });
