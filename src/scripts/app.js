@@ -71,7 +71,7 @@ app.controller("mainControl", function($scope, $http, $rootScope) {
 		doneBuilder($scope);
 	};
 
-	$scope.saveImage = function() {
+	$scope.saveImage = function(option="download") {
 		/**
 		 * Tạo một canvas và append vào cây DOM, node cha của nó là thẻ body.
 		 * Chỉ dùng để hỗ trợ cho hàm saveImage nên để display: none
@@ -84,7 +84,7 @@ app.controller("mainControl", function($scope, $http, $rootScope) {
 			canvas.id = canvasId;
 			canvas.width = 1500;
 			canvas.height = 1125;
-			canvas.style.display = 'none'
+			canvas.style.display = "none";
 			document.body.appendChild(canvas);
 		};
 
@@ -208,68 +208,75 @@ app.controller("mainControl", function($scope, $http, $rootScope) {
 			mixedFuncs.push(funcsCover[i]);
 		}
 
-		createImage("./img/phoicanh.png")
-			.then(img => drawImage(img, ""))
-			.then(() => {
-				serial(mixedFuncs).then(() => {
-					let canvas = document.getElementById("myCanvas");
-					let imgBase64 = canvas.toDataURL();
+		//2 option dựa vào parameter đưa vào. Nếu option là download thì ảnh phối cảnh sẽ lấy từ ảnh
+		//phoicanh.png, sau đó download bình thường.
 
-					//Chuyển base64 thành Blob object => Thay đổi cách đưa image data vào attribute href của thẻ a
-					base64ToBlob(imgBase64).then(canvasBlob => {
-						//Tạo thẻ a để làm trung gian download, ngay khi download sẽ remove khỏi DOM.
-						let imageLink = document.createElement("a");
-						imageLink.setAttribute(
-							"href",
-							URL.createObjectURL(canvasBlob)
-						);
-						imageLink.setAttribute(
-							"download",
-							"liena-" +
-								Math.floor(Math.random() * 999999) +
-								99999 +
-								".png"
-						);
+		//Nếu option là order thì sẽ return một Promise để thao tác trong hàm Order.
+		if (option == "download") {
+			createImage("./img/phoicanh.png")
+				.then(img => drawImage(img, ""))
+				.then(() => {
+					serial(mixedFuncs).then(() => {
+						let canvas = document.getElementById("myCanvas");
+						let imgBase64 = canvas.toDataURL();
 
-						// $rootScope.imageSaveBASE64 = imgBase64
-						imageLink.style.display = "none";
-						document.body.appendChild(imageLink);
-						imageLink.click();
-						document.body.removeChild(imageLink);
+						//Chuyển base64 thành Blob object => Thay đổi cách đưa image data vào attribute href của thẻ a
+						base64ToBlob(imgBase64).then(canvasBlob => {
+							//Tạo thẻ a để làm trung gian download, ngay khi download sẽ remove khỏi DOM.
+							let imageLink = document.createElement("a");
+							imageLink.setAttribute(
+								"href",
+								URL.createObjectURL(canvasBlob)
+							);
+							imageLink.setAttribute(
+								"download",
+								"liena-" +
+									Math.floor(Math.random() * 999999) +
+									99999 +
+									".png"
+							);
 
-						//Remove 2 canvas ra khỏi cây DOM
-						document.body.removeChild(canvas);
-						document.body.removeChild(tempCanvas);
+							// $rootScope.imageSaveBASE64 = imgBase64
+							imageLink.style.display = "none";
+							document.body.appendChild(imageLink);
+							imageLink.click();
+							document.body.removeChild(imageLink);
+
+							//Remove 2 canvas ra khỏi cây DOM
+							document.body.removeChild(canvas);
+							document.body.removeChild(tempCanvas);
+						});
 					});
-				});
-			})
-			.catch(err => console.log(err));
+				})
+				.catch(err => console.log(err));
+		}
 
-		// createImage('./img/phoicanh.jpg')
-		// 	.then(img => drawImage(img, ""))
-		// 	.then(() => {
-		// 		serial(funcs).then(() => {
-		// 			serial(funcsCover).then(() => {
-		// 				let canvas = document.getElementById("myCanvas");
-		// 				let imgBase64 = canvas.toDataURL();
-		// 				//Tạo thẻ a để làm trung gian download, ngay khi download sẽ remove khỏi DOM.
-		// 				let imageLink = document.createElement("a");
-		// 				imageLink.setAttribute("href", imgBase64);
-		// 				imageLink.setAttribute("download", "liena-" + Math.floor(Math.random() * 999999) + 99999 + ".png");
+		if (option == "order") {
+			return new Promise((resolve, reject) => {
+				createImage("./img/phoicanh.jpg")
+					.then(img => drawImage(img, ""))
+					.then(() => {
+						serial(mixedFuncs).then(() => {
+							try {
+								let canvas = document.getElementById(
+									"myCanvas"
+								);
+								let imgBase64 = canvas.toDataURL();
 
-		// 				$rootScope.imageSaveBASE64 = imgBase64
-		// 				imageLink.style.display = "none";
-		// 				document.body.appendChild(imageLink);
-		// 				imageLink.click();
-		// 				document.body.removeChild(imageLink);
+								$rootScope.imageSaveBASE64 = imgBase64;
 
-		// 				//Remove 2 canvas ra khỏi cây DOM
-		// 				document.body.removeChild(canvas);
-		// 				document.body.removeChild(tempCanvas);
-		// 			});
-		// 		});
-		// 	})
-		// 	.catch(err => console.log(err));
+								//Remove 2 canvas ra khỏi cây DOM
+								document.body.removeChild(canvas);
+								document.body.removeChild(tempCanvas);
+								resolve("Set image successful");
+							} catch (error) {
+								reject(error);
+							}
+						});
+					})
+					.catch();
+			});
+		}
 	};
 
 	$scope.shareImage = function() {
@@ -285,25 +292,35 @@ app.controller("mainControl", function($scope, $http, $rootScope) {
 			"&src=sdkpreparse";
 	};
 	$scope.order = function() {
-		let dataToOrder = {
-			image: $rootScope.imageSaveBASE64,
-			productId: parseInt($scope.CAT_URL),
-			pat: $rootScope.dataPat.toString().replace(",,", ",-,")
-		};
-		$http({
-			method: "POST",
-			url: baoNguyenApp.API.URL + baoNguyenApp.API.save,
-			data: dataToOrder
-		}).then(
-			function(response) {
-				if (response.data.success) {
-					window.location.href = response.data.cartpageurl;
-				}
-			},
-			function(error) {
-				console.log("Lỗi Save: " + error);
-			}
-		);
+		const orderOption = $scope.saveImage("order");
+		orderOption
+		.then(() => {
+			let dataToOrder = {
+				image: $rootScope.imageSaveBASE64,
+				productId: parseInt($scope.CAT_URL),
+				pat: $rootScope.dataPat.toString().replace(",,", ",-,")
+			};
+			console.table(dataToOrder)	//Bật dòng này để kiểm tra code base64 của ảnh đã vào hay chưa
+			///////////////Code cho hàm Order vào đây////////////////////////
+			
+			
+			//Chặn chuyển trang
+			// $http({
+			// 	method: "POST",
+			// 	url: baoNguyenApp.API.URL + baoNguyenApp.API.save,
+			// 	data: dataToOrder
+			// }).then(
+			// 	function(response) {
+			// 		if (response.data.success) {
+			// 			window.location.href = response.data.cartpageurl;
+			// 		}
+			// 	},
+			// 	function(error) {
+			// 		console.log("Lỗi Save: " + error);
+			// 	}
+			// );
+		})
+		.catch(err => console.log(err));
 	};
 });
 // Child Controller
