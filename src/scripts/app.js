@@ -2,7 +2,7 @@ var app = angular.module("canhCamApp", ["ui.bootstrap"]);
 // Config
 app.config([
 	"$compileProvider",
-	function($compileProvider) {
+	function ($compileProvider) {
 		$compileProvider.aHrefSanitizationWhitelist(
 			/^\s*(https?|ftp|mailto|file|javascript):/
 		);
@@ -11,14 +11,14 @@ app.config([
 // Filter
 app.filter("html", [
 	"$sce",
-	function($sce) {
-		return function(val) {
+	function ($sce) {
+		return function (val) {
 			return $sce.trustAsHtml(val);
 		};
 	}
 ]);
 // Main Controller
-app.controller("mainControl", function($scope, $http, $rootScope) {
+app.controller("mainControl", function ($scope, $http, $rootScope) {
 	$scope.showloading = false;
 	$scope.imageSave = null;
 	$rootScope.genIMG = [];
@@ -28,7 +28,7 @@ app.controller("mainControl", function($scope, $http, $rootScope) {
 	$scope.showdone = false;
 	// $scope.buildimagedone = false
 	($scope.CAT_URL = getUrlParameter("productid")),
-		($scope.PA_URL = getUrlParameter("pat"));
+	($scope.PA_URL = getUrlParameter("pat"));
 	$scope.lang = {
 		loading: "Đang tải dữ liệu...",
 		pattern: "Mẫu",
@@ -44,13 +44,12 @@ app.controller("mainControl", function($scope, $http, $rootScope) {
 	};
 	$http({
 		method: "GET",
-		url:
-			baoNguyenApp.API.URL +
+		url: baoNguyenApp.API.URL +
 			baoNguyenApp.API.main +
 			"?id=" +
 			$scope.CAT_URL
 	}).then(
-		function(response) {
+		function (response) {
 			$scope.settings = eval(response.data.settings);
 			$scope.backURL = response.data.settings.productUrl;
 			$scope.header = $scope.settings.header.replace(
@@ -58,20 +57,20 @@ app.controller("mainControl", function($scope, $http, $rootScope) {
 				baoNguyenApp.API.URL + "/Data/Sites/"
 			);
 		},
-		function(error) {
+		function (error) {
 			console.log("Lỗi Data: " + error);
 		}
 	);
 
-	$scope.setPattern = function(e) {
+	$scope.setPattern = function (e) {
 		doSetMaterial(e, $scope, $http, $rootScope);
 	};
 
-	$scope.buildImage = function() {
+	$scope.buildImage = function () {
 		doneBuilder($scope);
 	};
 
-	$scope.saveImage = function(option="download") {
+	$scope.saveImage = function (option = "download") {
 		/**
 		 * Tạo một canvas và append vào cây DOM, node cha của nó là thẻ body.
 		 * Chỉ dùng để hỗ trợ cho hàm saveImage nên để display: none
@@ -180,24 +179,24 @@ app.controller("mainControl", function($scope, $http, $rootScope) {
 		const serial = funcs =>
 			funcs.reduce(
 				(promise, func) =>
-					promise
-						.then(result =>
-							func().then(Array.prototype.concat.bind(result))
-						)
-						.catch(error => Array.prototype.concat.bind(error)),
+				promise
+				.then(result =>
+					func().then(Array.prototype.concat.bind(result))
+				)
+				.catch(error => Array.prototype.concat.bind(error)),
 				Promise.resolve([])
 			);
 
 		const funcs = $rootScope.genIMG.map(image => () =>
 			createImage(image.url)
-				.then(img => drawImage(img, image.colorCode))
-				.catch(error => console.log(error))
+			.then(img => drawImage(img, image.colorCode))
+			.catch(error => console.log(error))
 		);
 
 		const funcsCover = $rootScope.genIMG.map(image => () =>
 			createImage(image.url_cover)
-				.then(img => drawImage(img, ""))
-				.catch(error => console.log(error))
+			.then(img => drawImage(img, ""))
+			.catch(error => console.log(error))
 		);
 
 		//Xen kẽ hai array để khi vẽ image lên canvas sẽ vẽ
@@ -211,7 +210,7 @@ app.controller("mainControl", function($scope, $http, $rootScope) {
 		//2 option dựa vào parameter đưa vào. Nếu option là download thì ảnh phối cảnh sẽ lấy từ ảnh
 		//phoicanh.png, sau đó download bình thường.
 
-		//Nếu option là order thì sẽ return một Promise để thao tác trong hàm Order.
+		//Nếu option là preview thì sẽ return một Promise để thao tác trong hàm Order hoặc Share.
 		if (option == "download") {
 			createImage("./img/phoicanh.png")
 				.then(img => drawImage(img, ""))
@@ -231,9 +230,9 @@ app.controller("mainControl", function($scope, $http, $rootScope) {
 							imageLink.setAttribute(
 								"download",
 								"liena-" +
-									Math.floor(Math.random() * 999999) +
-									99999 +
-									".png"
+								Math.floor(Math.random() * 999999) +
+								99999 +
+								".png"
 							);
 
 							// $rootScope.imageSaveBASE64 = imgBase64
@@ -251,7 +250,7 @@ app.controller("mainControl", function($scope, $http, $rootScope) {
 				.catch(err => console.log(err));
 		}
 
-		if (option == "order") {
+		if (option == "preview") {
 			return new Promise((resolve, reject) => {
 				createImage("./img/phoicanh.jpg")
 					.then(img => drawImage(img, ""))
@@ -279,59 +278,67 @@ app.controller("mainControl", function($scope, $http, $rootScope) {
 		}
 	};
 
-	$scope.shareImage = function() {
-		let dataToOrder = {
-			productId: parseInt($scope.CAT_URL),
-			pat: $rootScope.dataPat.toString().replace(",,", ",-,")
-		};
-		let newsFullPath = document.URL;
-		let newsFullPathEncode = encodeURIComponent(newsFullPath);
-		window.location.href =
-			"https://www.facebook.com/sharer/sharer.php?u=" +
-			newsFullPathEncode +
-			"&src=sdkpreparse";
-	};
-	$scope.order = function() {
-		const orderOption = $scope.saveImage("order");
+	$scope.shareImage = function () {
+		const orderOption = $scope.saveImage("preview");
 		orderOption
-		.then(() => {
-			let dataToOrder = {
-				image: $rootScope.imageSaveBASE64,
-				productId: parseInt($scope.CAT_URL),
-				pat: $rootScope.dataPat.toString().replace(",,", ",-,")
-			};
-			console.table(dataToOrder)	//Bật dòng này để kiểm tra code base64 của ảnh đã vào hay chưa
-			///////////////Code cho hàm Order vào đây////////////////////////
-			
-			
-			//Chặn chuyển trang
-			// $http({
-			// 	method: "POST",
-			// 	url: baoNguyenApp.API.URL + baoNguyenApp.API.save,
-			// 	data: dataToOrder
-			// }).then(
-			// 	function(response) {
-			// 		if (response.data.success) {
-			// 			window.location.href = response.data.cartpageurl;
-			// 		}
-			// 	},
-			// 	function(error) {
-			// 		console.log("Lỗi Save: " + error);
-			// 	}
-			// );
-		})
-		.catch(err => console.log(err));
+			.then(() => {
+				const metaImgArrayJquery = {
+					facebook: $('meta[property="og:image"]'),
+					twitter: $('meta[name="twitter:image:src"]'),
+					others: $('meta[itemprop="image"]')
+				}
+				metaImgArrayJquery.facebook.attr('content', 'preview8611.canhcam.com.vn/Data/Sites/1/Product/739/1-2.jpg')
+				metaImgArrayJquery.twitter.attr('content', 'preview8611.canhcam.com.vn/Data/Sites/1/Product/739/1-2.jpg')
+				metaImgArrayJquery.others.attr('content', 'preview8611.canhcam.com.vn/Data/Sites/1/Product/739/1-2.jpg')
+				let newsFullPath = document.URL;
+				let newsFullPathEncode = encodeURIComponent(newsFullPath);
+				window.open(
+					`https://www.facebook.com/sharer/sharer.php?u=${newsFullPathEncode}&src=sdkpreparse`
+				)
+			})
+			.catch(err => console.log(err));
+	};
+	$scope.order = function () {
+		const orderOption = $scope.saveImage("preview");
+		orderOption
+			.then(() => {
+				let dataToOrder = {
+					image: $rootScope.imageSaveBASE64,
+					productId: parseInt($scope.CAT_URL),
+					pat: $rootScope.dataPat.toString().replace(",,", ",-,")
+				};
+				console.table(dataToOrder) //Bật dòng này để kiểm tra code base64 của ảnh đã vào hay chưa
+				///////////////Code cho hàm Order vào đây////////////////////////
+
+
+				//Chặn chuyển trang
+				$http({
+					method: "POST",
+					url: baoNguyenApp.API.URL + baoNguyenApp.API.save,
+					data: dataToOrder
+				}).then(
+					function (response) {
+						if (response.data.success) {
+							window.location.href = response.data.cartpageurl;
+						}
+					},
+					function (error) {
+						console.log("Lỗi Save: " + error);
+					}
+				);
+			})
+			.catch(err => console.log(err));
 	};
 });
 // Child Controller
-app.controller("getMenuMaterial", function($scope, $http, $rootScope) {
+app.controller("getMenuMaterial", function ($scope, $http, $rootScope) {
 	$http({
 		method: "GET",
 		url: baoNguyenApp.API.URL + baoNguyenApp.API.menu
 	}).then(
-		function(response) {
+		function (response) {
 			$scope.menus = eval(response.data.menu);
-			$scope.ctrlClickHandler = function(e, m) {
+			$scope.ctrlClickHandler = function (e, m) {
 				$rootScope.index = m;
 				getMaterial(e, $scope, $http, $rootScope);
 			};
@@ -343,15 +350,14 @@ app.controller("getMenuMaterial", function($scope, $http, $rootScope) {
 				for (let index = 0; index < empIds.length; index++) {
 					$http({
 						method: "GET",
-						url:
-							baoNguyenApp.API.URL +
+						url: baoNguyenApp.API.URL +
 							baoNguyenApp.API.material +
 							"?id=" +
 							$scope.menus[index].id
 					}).then(
-						function(data) {
+						function (data) {
 							$scope.data = eval(data.data.lists);
-							var filteredArray = $scope.data.filter(function(
+							var filteredArray = $scope.data.filter(function (
 								itm
 							) {
 								return empIds.indexOf("" + itm.id + "") > -1;
@@ -363,7 +369,7 @@ app.controller("getMenuMaterial", function($scope, $http, $rootScope) {
 								$rootScope
 							);
 						},
-						function(error) {
+						function (error) {
 							console.log("Lỗi Material: " + error);
 						}
 					);
@@ -371,7 +377,7 @@ app.controller("getMenuMaterial", function($scope, $http, $rootScope) {
 				// doneBuilder($scope, $http)
 			}
 		},
-		function(error) {
+		function (error) {
 			console.log("Lỗi Menu: " + error);
 		}
 	);
@@ -385,8 +391,7 @@ function getMaterial(el, $scope, $http, $rootScope) {
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = $scope.viewby;
 	$scope.maxSize = 3;
-	$scope.select = [
-		{
+	$scope.select = [{
 			id: 12,
 			name: "12"
 		},
@@ -408,16 +413,16 @@ function getMaterial(el, $scope, $http, $rootScope) {
 		}
 	];
 	$scope.viewby = $scope.select[0];
-	$scope.setPage = function(pageNo) {
+	$scope.setPage = function (pageNo) {
 		$scope.currentPage = pageNo;
 	};
-	$scope.pageChanged = function() {
+	$scope.pageChanged = function () {
 		$scope.lists = $scope.materials.slice(
 			($scope.currentPage - 1) * $scope.itemsPerPage,
 			$scope.currentPage * $scope.itemsPerPage
 		);
 	};
-	$scope.setItemsPerPage = function(num) {
+	$scope.setItemsPerPage = function (num) {
 		$scope.itemsPerPage = num.id;
 		$scope.currentPage = 1;
 		$scope.lists = $scope.materials.slice(
@@ -431,7 +436,7 @@ function getMaterial(el, $scope, $http, $rootScope) {
 		method: "GET",
 		url: baoNguyenApp.API.URL + baoNguyenApp.API.material + "?id=" + el
 	}).then(
-		function(response) {
+		function (response) {
 			$scope.materials = eval(response.data.lists);
 			$rootScope.dataCat = el;
 			// Phân trang
@@ -443,7 +448,7 @@ function getMaterial(el, $scope, $http, $rootScope) {
 			// Phân trang
 			$scope.showloading = false;
 		},
-		function(error) {
+		function (error) {
 			console.log("Lỗi Material: " + error);
 		}
 	);
@@ -454,15 +459,14 @@ function doSetMaterial(e, $scope, $http, $rootScope) {
 	$scope.showdone = true;
 	$http({
 		method: "GET",
-		url:
-			baoNguyenApp.API.URL +
+		url: baoNguyenApp.API.URL +
 			baoNguyenApp.API.material +
 			"?id=" +
 			$rootScope.dataCat
 	}).then(
-		function(response) {
+		function (response) {
 			$scope.data = eval(response.data.lists);
-			let newArray = $scope.data.filter(function(el) {
+			let newArray = $scope.data.filter(function (el) {
 				return el.id == e;
 			});
 			if ($rootScope.index == 3) {
@@ -472,7 +476,7 @@ function doSetMaterial(e, $scope, $http, $rootScope) {
 			}
 			getPat(newArray, $rootScope.index, e, $rootScope);
 		},
-		function(error) {
+		function (error) {
 			console.log("Lỗi Data: " + error);
 		}
 	);

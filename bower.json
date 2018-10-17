@@ -27,6 +27,7 @@
     "angular-sanitize": "^1.7.3",
     "offline": "^0.7.19",
     "dom-to-image": "^2.6.0",
-    "angular-screenshot": "^0.4.1"
+    "angular-screenshot": "^0.4.1",
+    "matchHeight": "matchheight#^0.7.2"
   }
 }

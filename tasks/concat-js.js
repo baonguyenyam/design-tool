@@ -4,6 +4,7 @@ module.exports = function(gulp, $, browserSync) {
                 'bower_components/jquery/dist/jquery.min.js',
                 'bower_components/offline/offline.min.js',
                 'bower_components/bootstrap/dist/js/bootstrap.bundle.min.js',
+				'bower_components/matchHeight/dist/jquery.matchHeight-min.js',
                 // 'bower_components/owl.carousel/dist/owl.carousel.min.js',
                 'bower_components/angular/angular.min.js',
                 // 'bower_components/angular-animate/angular-animate.min.js',

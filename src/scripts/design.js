@@ -30,7 +30,7 @@ var baoNguyenApp = {
 	},
 	// Khởi tạo app
 	init: () => {
-		$('.control-bar .toggle a').on('click', function() {
+		$('.control-bar .toggle a').on('click', function () {
 			$('.control-bar').addClass('active')
 		})
 	}
@@ -41,16 +41,17 @@ function setToolPos() {
 	let b = $('.select-nav .select-nav-color .notice').outerHeight()
 	let c = $('.select-nav .done-bar').outerHeight()
 	let m = a - c - 50
-	if((a - (b+c)) > 0 && $(window).height() > 600) {
+	if ((a - (b + c)) > 0 && $(window).height() > 600) {
 		$('.select-nav .select-nav-color .notice').height(m)
 	}
 }
+
 function setToolPosC() {
 	let a = $('.select-nav').outerHeight()
 	let b = $('.select-nav .select-nav-color .list-item').outerHeight()
 	let c = $('.select-nav .done-bar').outerHeight()
 	let m = a - c - 60
-	if((a - (b+c)) > 0 && $(window).height() > 600) {
+	if ((a - (b + c)) > 0 && $(window).height() > 600) {
 		$('.select-nav .select-nav-color .list-item').height(m)
 	}
 }
@@ -66,6 +67,14 @@ function toggleMenuChild(el) {
 	$(el).addClass('active')
 }
 
+//FUNCTION TO RESIZE SELECT NAV TO EQUALS BOX-PRODUCT
+function equalBoxSize() {
+	$('.select-color').matchHeight({
+		property: 'height',
+		target: $('.apply-content'),
+	});
+}
+
 // Canh Cam Code
 $(document).ready(() => {
 	baoNguyenApp.init()
@@ -76,6 +85,7 @@ $(document).ready(() => {
 		}, 500);
 	})
 	setToolPos()
+	equalBoxSize()
 });
 
 $(window).resize(() => {
