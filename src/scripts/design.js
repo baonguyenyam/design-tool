@@ -1,7 +1,7 @@
 var baoNguyenApp = {
 	// API hệ thống 
 	API: {
-		URL: "http://preview8611.canhcam.com.vn",
+		URL: "",
 		main: '/Product/Services/Api/Drap/PreLoader.ashx',
 		menu: '/Product/Services/Api/Drap/List.ashx',
 		save: '/Product/Services/Api/Drap/Save.ashx',

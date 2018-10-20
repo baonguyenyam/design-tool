@@ -279,24 +279,11 @@ app.controller("mainControl", function ($scope, $http, $rootScope) {
 	};
 
 	$scope.shareImage = function () {
-		const orderOption = $scope.saveImage("preview");
-		orderOption
-			.then(() => {
-				const metaImgArrayJquery = {
-					facebook: $('meta[property="og:image"]'),
-					twitter: $('meta[name="twitter:image:src"]'),
-					others: $('meta[itemprop="image"]')
-				}
-				metaImgArrayJquery.facebook.attr('content', 'preview8611.canhcam.com.vn/Data/Sites/1/Product/739/1-2.jpg')
-				metaImgArrayJquery.twitter.attr('content', 'preview8611.canhcam.com.vn/Data/Sites/1/Product/739/1-2.jpg')
-				metaImgArrayJquery.others.attr('content', 'preview8611.canhcam.com.vn/Data/Sites/1/Product/739/1-2.jpg')
-				let newsFullPath = document.URL;
-				let newsFullPathEncode = encodeURIComponent(newsFullPath);
-				window.open(
-					`https://www.facebook.com/sharer/sharer.php?u=${newsFullPathEncode}&src=sdkpreparse`
-				)
-			})
-			.catch(err => console.log(err));
+		let newsFullPath = document.URL;
+		let newsFullPathEncode = encodeURIComponent(newsFullPath);
+		window.open(
+			`https://www.facebook.com/sharer/sharer.php?u=${newsFullPathEncode}&src=sdkpreparse`
+		)
 	};
 	$scope.order = function () {
 		const orderOption = $scope.saveImage("preview");
