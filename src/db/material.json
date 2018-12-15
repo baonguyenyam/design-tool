@@ -1,0 +1,97 @@
+{
+	"lists": [{
+			"name": "Aqua Haze",
+			"code": "ASDFGHJKL",
+			"color": ["#87b9bc", "#5b7e98"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#334455"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Chọn màu tường",
+			"code": "FGHJKKK",
+			"color": ["#1a7f8e", "#6c6868"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#325b74", "#223a5e"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#a26666", "#6c6868"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#f4c49f", "#6c6868"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#af9294", "#e5d0cf"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#5b7e98", "#223a5e"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Aqua Haze",
+			"code": "SDFGHJKL",
+			"color": ["#87b9bc", "#5b7e98"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#334455"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#1a7f8e", "#6c6868"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#325b74", "#223a5e"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#a26666", "#6c6868"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#f4c49f", "#6c6868"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#af9294", "#e5d0cf"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		},
+		{
+			"name": "Chọn màu tường",
+			"code": "SDFGHJKL",
+			"color": ["#5b7e98", "#223a5e"],
+			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
+		}
+	]
+}

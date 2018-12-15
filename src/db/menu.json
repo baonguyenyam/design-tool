@@ -1,0 +1,38 @@
+{
+	"menu": [{
+			"id": 1,
+			"name": "Chọn màu tường",
+			"desc": "kjhdskj sadkjhd akdhakd ha da",
+			"icon": "<img src=\".\/img\/icon_1.png\">",
+			"multi": false
+		},
+		{
+			"id": 2,
+			"name": "Chọn màu tường",
+			"desc": "kjhdskj sadkjhd akdhakd ha da",
+			"icon": "<img src=\".\/img\/icon_2.png\">",
+			"multi": false
+		},
+		{
+			"id": 3,
+			"name": "Chọn màu tường",
+			"desc": "kjhdskj sadkjhd akdhakd ha da",
+			"icon": "<img src=\".\/img\/icon_3.png\">",
+			"multi": false
+		},
+		{
+			"id": 4,
+			"name": "Chọn màu tường",
+			"desc": "kjhdskj sadkjhd akdhakd ha da",
+			"icon": "<img src=\".\/img\/icon_4.png\">",
+			"multi": false
+		},
+		{
+			"id": 5,
+			"name": "Chọn màu tường",
+			"desc": "kjhdskj sadkjhd akdhakd ha da",
+			"icon": "<img src=\".\/img\/icon_5.png\">",
+			"multi": true
+		}
+	]
+}

@@ -2,11 +2,11 @@ var baoNguyenApp = {
 	// API hệ thống 
 	API: {
 		URL: "",
-		main: '/Product/Services/Api/Drap/PreLoader.ashx',
-		menu: '/Product/Services/Api/Drap/List.ashx',
+		main: './db/main.json',
+		menu: './db/menu.json',
 		save: '/Product/Services/Api/Drap/Save.ashx',
 		share: '/Product/Services/Api/Drap/Share.ashx',
-		material: '/Product/Services/Api/Drap/Detail.ashx',
+		material: './db/material.json',
 	},
 	// Bật loadding 
 	loading: (i) => {
