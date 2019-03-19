@@ -1,36 +1,36 @@
 {
 	"lists": [{
 			"name": "Aqua Haze",
-			"code": "ASDFGHJKL",
+			"code": "897HDL",
 			"color": ["#87b9bc", "#5b7e98"],
 			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
 		},
 		{
 			"name": "Chọn màu tường",
-			"code": "SDFGHJKL",
-			"color": ["#334455"],
+			"code": "SJHD76",
+			"color": ["#334455","#f4c49f"],
 			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
 		},
 		{
 			"name": "Chọn màu tường",
-			"code": "FGHJKKK",
+			"code": "69FSSH",
 			"color": ["#1a7f8e", "#6c6868"],
 			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
 		},
 		{
 			"name": "Chọn màu tường",
-			"code": "SDFGHJKL",
+			"code": "SDFG786",
 			"color": ["#325b74", "#223a5e"],
 			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
 		},
 		{
 			"name": "Chọn màu tường",
-			"code": "SDFGHJKL",
+			"code": "367JKL",
 			"color": ["#a26666", "#6c6868"],
 			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
 		},{
 			"name": "Chọn màu tường",
-			"code": "SDFGHJKL",
+			"code": "SDF678KL",
 			"color": ["#f4c49f", "#6c6868"],
 			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
 		},
@@ -55,7 +55,7 @@
 		{
 			"name": "Chọn màu tường",
 			"code": "SDFGHJKL",
-			"color": ["#334455"],
+			"color": ["#334455","#1a7f8e"],
 			"image": [".\/img\/home_2.png", ".\/img\/home_2.png"]
 		},
 		{
